@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#80C643</color>
-    <color name="colorPrimaryDark">#80C643</color>
-    <color name="colorAccent">#80C643</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#8A0000</color>
 
     <color name="bg_black33">#33cccccc</color>
     <color name="bg_pink">#FFA3BE</color>
     <color name="bg_pink33">#33FFA3BE</color>
     <color name="bg_purple">#C91DFF</color>
     <color name="bg_purple33">#C96DFF</color>
-    <color name="bgColor">#f2f2f2</color>
+    <color name="bgColor">#F0F0F0</color>
     <color name="title_bar">#003680</color>
     <color name="blue_bar">#0796ff</color>
     <color name="title_text">#333333</color>
@@ -26,7 +26,7 @@
     <color name="disableColor">#a09e9f</color>
     <color name="bg_green">#80C643</color>
     <color name="text_green">#5CAC2D</color>
-    <color name="dividing_line_color">#E5E5E5</color>
+    <color name="dividing_line_color">#E0E0E0</color>
     <color name="blue">#0079c2</color>
     <color name="ligh_blue">#29D1FE</color>
     <color name="ligh_blue33">#01D1FE</color>

@@ -31,9 +31,9 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
     private LinearLayout indicator;
     private ImageView[] indicatorViews;
     private String indicatorBgColor = "#00000000";
-    private int indicatorHeight = 30;//默认高度，单位dip
+    private int indicatorHeight = 20;//默认高度，单位dip
     private float aspect = -1f;
-    private int interval = 3*1000;//5秒
+    private int interval = 5*1000;//5秒
     private boolean showIndicator = true;
     private PagerAdapter mPagerAdapter;
     private DataSetObserver mDataSetObserver;
@@ -130,7 +130,6 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
         else {
             super.onMeasure(widthMeasureSpec,heightMeasureSpec);
         }
-
     }
     public void setMode(int mode){
         autoScrollViewPager.setSlideBorderMode(mode);
@@ -165,9 +164,7 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
             autoScrollViewPager.setAdapter(mPagerAdapter);
             showIndicator(showIndicator);
         }
-
     }
-
     /**
      * 开始自动滚动
      */
@@ -180,7 +177,6 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
     public void stopAutoScroll(){
         autoScrollViewPager.stopAutoScroll();
     }
-
 
     public void showIndicator(boolean show){
         showIndicator = show;
@@ -220,11 +216,11 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
             for (int i = 0;i<count;i++){
                 ImageView view = new ImageView(getContext());
                 indicatorViews[i] = view;
-                LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(dip2px(5),dip2px(5));
+                LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(dip2px(18),dip2px(3));
                 params.rightMargin = dip2px(5);
                 view.setLayoutParams(params);
                 view.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                view.setBackgroundResource(R.drawable.page_indicator);
+                view.setBackgroundResource(R.drawable.page_indication_rect);
                 if (i == 0){
                     view.setSelected(true);
                 }
@@ -261,7 +257,6 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
             if (mPagerAdapter instanceof RecyclingUnlimitedPagerAdapter){
                 position %=mPagerAdapter.getCount()/30;
             }
-            Log.d(TAG, "onPageSelected: ---------->"+position);
             if (indicator!=null){
                 setImageBackground(position);
             }

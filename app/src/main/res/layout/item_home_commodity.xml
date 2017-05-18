@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_rect_top_0dp"
+    >
+    <com.zipingfang.jindiexuan.view.SquareRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:id="@+id/iv_commodity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/test_commodity_01"
+            android:scaleType="centerCrop"
+            />
+    </com.zipingfang.jindiexuan.view.SquareRelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            style="@style/text"
+            android:text="巴塞罗那之夜"
+            android:padding="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+        <TextView
+            style="@style/hint_text_samll"
+            android:text="2磅"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

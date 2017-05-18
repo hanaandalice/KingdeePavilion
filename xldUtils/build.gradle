@@ -57,5 +57,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 
-
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

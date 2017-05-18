@@ -1,5 +1,6 @@
 package com.xilada.xldutils.activitys;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import com.xilada.xldutils.R;
 import com.xilada.xldutils.tool.CacheActivity;
+import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.view.NavigationBar;
 
 import org.json.JSONException;
@@ -26,7 +28,8 @@ public abstract class TitleBarActivity extends BaseActivity {
     protected abstract void initView() throws JSONException, IllegalAccessException;
     private NavigationBar navigationBar;
     private LinearLayout rootView;//根view
-    private View line;
+    private View line,
+    view;
     protected int titleHight;
     private boolean isStatus =false;
     @Override
@@ -34,10 +37,13 @@ public abstract class TitleBarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-////            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //        }
         setContentView(R.layout.activity_title_bar);
+        //修改状态栏
         initStatus();
+        //修改状态栏文字颜色
+        StatusBarUtils.StatusBarLightMode(this);
         CacheActivity.addActivity(this);
         try {
             init();
@@ -52,7 +58,7 @@ public abstract class TitleBarActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            View view = bind(R.id.status_view);
+            view= bind(R.id.status_view);
             view.setVisibility(View.VISIBLE);
             //获取到状态栏的高度
             int statusHeight = getStatusBarHeight();
@@ -78,7 +84,7 @@ public abstract class TitleBarActivity extends BaseActivity {
         View v=View.inflate(this, viewId, null);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         layoutParams.weight = 1;
-        rootView.addView(v, 2, layoutParams);
+        rootView.addView(v, 3, layoutParams);
         initView();
         navigationBar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -233,5 +239,9 @@ public abstract class TitleBarActivity extends BaseActivity {
     protected void hideSoftWindow(View v){
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    public void setViewHide(boolean isStatus) {
+        line.setVisibility(isStatus ? View.VISIBLE : View.GONE);
     }
 }

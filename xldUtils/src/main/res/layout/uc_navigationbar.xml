@@ -42,7 +42,6 @@
         android:layout_marginLeft="@dimen/item_20"
         android:gravity="right|center_vertical"
         android:layout_weight="0">
-
         <TextView
             android:id="@+id/tv_tip"
             android:layout_width="10dp"
