@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#80C643</color>
+    <color name="colorPrimaryDark">#80C643</color>
+    <color name="colorAccent">#80C643</color>
+
+    <color name="bg_black33">#33cccccc</color>
+    <color name="bg_pink">#FFA3BE</color>
+    <color name="bg_pink33">#33FFA3BE</color>
+    <color name="bg_purple">#C91DFF</color>
+    <color name="bg_purple33">#C96DFF</color>
+    <color name="bgColor">#f2f2f2</color>
+    <color name="title_bar">#003680</color>
+    <color name="blue_bar">#0796ff</color>
+    <color name="title_text">#333333</color>
+    <color name="textColor">#333333</color>
+    <color name="label_text">#262930</color>
+    <!--备注颜色-->
+    <color name="grey_text">#919191</color>
+    <!-- text_hint_color -->
+    <color name="textColorHint">#7C7C7C</color>
+    <color name="tipTextColor">#7e7e7e</color>
+    <color name="theme_color">#ffc600</color>
+    <color name="l_transparent">#80000000</color>
+    <color name="l_white">#fbfaf5</color>
+    <color name="disableColor">#a09e9f</color>
+    <color name="bg_green">#80C643</color>
+    <color name="text_green">#5CAC2D</color>
+    <color name="dividing_line_color">#E5E5E5</color>
+    <color name="blue">#0079c2</color>
+    <color name="ligh_blue">#29D1FE</color>
+    <color name="ligh_blue33">#01D1FE</color>
+    <color name="colorgarycf">#cfcfcf</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparentwhrit">#55ffffff</color>
+
+    <!--actionbar-->
+    <color name="de_actionbar_bg">#0195ff</color>
+    <!---->
+    <color name="de_action_color">#3498DB</color>
+    <color name="de_action_white">@android:color/white</color>
+    <color name="de_transparent">#00000000</color>
+
+    <color name="de_draft_color">#cb120f</color>
+    <color name="main_theme_color">#0195ff</color>
+
+    <color name="press">#e8e8e8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_line_color">#dfdfdd</color>
+    <color name="text_line_color_de">#dedede</color>
+    <color name="text_black_color">#333333</color>
+    <color name="black_86">#868686</color>
+    <color name="text_tips_color">#666666</color>
+    <color name="mine_head_color">#cccccc</color>
+    <color name="text_color">#333333</color>
+    <!--SWITCH-->
+    <color name="ksw_md_ripple_normal">#1E000000</color>
+    <color name="ksw_md_solid_shadow">#33000000</color>
+    <color name="ksw_md_solid_normal">#ECECEC</color>
+    <color name="ksw_md_solid_disable">#FFFFFF</color>
+    <color name="ksw_md_solid_checked_disable">#aaaaaa</color>
+
+    <color name="ac_filter_string_color">#0099ff</color>
+</resources>
