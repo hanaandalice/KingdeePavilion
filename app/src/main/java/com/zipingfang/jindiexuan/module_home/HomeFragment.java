@@ -63,9 +63,9 @@ public class HomeFragment extends BaseLazyFragment {
 
             }
         });
-        list.add("https://raw.githubusercontent.com/youth5201314/banner/master/app/src/main/res/mipmap-xhdpi/b3.jpg");
         list.add("https://raw.githubusercontent.com/youth5201314/banner/master/app/src/main/res/mipmap-xhdpi/b1.jpg");
-        list.add("https://raw.githubusercontent.com/youth5201314/banner/master/app/src/main/res/mipmap-xhdpi/b2.jpg");
+        list.add("https://raw.githubusercontent.com/youth5201314/banner/master/app/src/main/res/mipmap-xhdpi/b1.jpg");
+        list.add("https://raw.githubusercontent.com/youth5201314/banner/master/app/src/main/res/mipmap-xhdpi/b1.jpg");
         unlimitedPagerAdapter = new RecyclingUnlimitedPagerAdapter(bannerLayout.getAutoScrollViewPager(),getActivity(), list, R.layout.item_banner_imgae) {
             @Override
             protected void onBind(int position, Object data, ViewHolder holder) {

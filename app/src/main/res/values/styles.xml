@@ -35,7 +35,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/hintColor_66</item>
     </style>
-    <style name="hint99__text">
+    <style name="hint99_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
@@ -95,5 +95,15 @@
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>
         <item name="android:cursorVisible">true</item>
     </style>
+    <!--gradation-->
+    <style name="MaterialIndicator.Demo">
+        <item name="mi_indicatorColor">?android:attr/colorAccent</item>
+        <item name="mi_indicatorPadding">32dp</item>
+        <item name="mi_indicatorRadius">4dp</item>
+    </style>
 
+    <style name="MaterialIndicator">
+        <item name="mi_indicatorRadius">4dp</item>
+        <item name="mi_indicatorColor">#ff8f0000</item>
+    </style>
 </resources>

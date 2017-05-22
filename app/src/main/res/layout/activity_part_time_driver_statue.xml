@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_Color"
+    >
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                style="@style/ll_h_layout_no_margin"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    style="@style/hint_text"
+                    android:text="审核状态："
+                    android:layout_marginRight="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="审核中"
+                    android:textColor="@color/greenColor_4c"
+                    />
+            </LinearLayout>
+            <TextView
+                style="@style/hint_text"
+                android:text="身份信息"
+                android:padding="10dp"
+                />
+            <TextView
+                style="@style/padding_10_10_16_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="赵三"
+                android:textSize="14sp"
+                android:textColor="@color/text_color"
+                />
+            <View
+                style="@style/view_line_h"/>
+            <TextView
+                style="@style/padding_10_10_16_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="23213121321321"
+                android:textSize="14sp"
+                android:textColor="@color/text_color"
+                />
+            <LinearLayout
+                style="@style/ll_h_layout_no_margin"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    style="@style/hint_text"
+                    android:text="司机种类"
+                    android:layout_marginRight="20dp"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_right_grey"
+                    android:gravity="center_vertical|right"
+                    android:textSize="14sp"
+                    android:textColorHint="@color/hintColor_99"
+                    android:hint="请选择司机种类"
+                    android:text="汽车司机"
+                    android:textColor="@color/text_color"
+                    android:drawablePadding="10dp"
+                    />
+            </LinearLayout>
+            <TextView
+                style="@style/hint_text"
+                android:padding="10dp"
+                android:text="上传身份证正反面（必填）" />
+            <LinearLayout
+                style="@style/padding_10_10_16_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.1"
+                    android:text="温馨提示：请上传原始比例的身份证正反面，请勿裁剪涂改，保证身份信息清晰显示，否则无法通过审核！"
+                    android:textColor="#BF5656"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_card_positive"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/test_card_01"
+                            android:background="@color/bg_Color"
+                            />
+                        <TextView
+                            style="@style/hint_text_samll"
+                            android:padding="10dp"
+                            android:text="示例" />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_card_default_positive" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_card_negative"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/test_card_02"
+                            android:background="@color/bg_Color" />
+                        <TextView
+                            style="@style/hint_text_samll"
+                            android:padding="10dp"
+                            android:text="示例" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_card_default_negative" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="上传驾驶证首副页照片（必填）" />
+            <LinearLayout
+                style="@style/padding_10_10_16_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/iv_driver_license_positive"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/test_license_01"
+                        android:background="@color/bg_Color"  />
+
+                    <TextView
+                        style="@style/hint_text_samll"
+                        android:padding="10dp"
+                        android:text="示例" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_driver_license_positive" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/iv_driver_license_negative"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/test_license_02"
+                        android:background="@color/bg_Color"
+                        />
+                    <TextView
+                        style="@style/hint_text_samll"
+                        android:padding="10dp"
+                        android:text="示例" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_driver_license_negative" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/bg_Color"/>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

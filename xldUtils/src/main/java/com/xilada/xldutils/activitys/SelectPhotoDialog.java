@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -46,6 +47,7 @@ public class SelectPhotoDialog extends DialogActivity implements OnClickListener
 	protected int exitAnim() {
 		return 0;
 	}
+	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -131,6 +133,7 @@ public class SelectPhotoDialog extends DialogActivity implements OnClickListener
 			}else{
 				//用户不同意，向用户展示该权限作用
 				if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+					Log.d(TAG, "onRequestPermissionsResult: ------进入了C--->");
 					DialogUtils.createNoticeDialog(this, "请注意", "本应用需要使用访问本地存储权限，否则无法正常使用！", "确定", "取消", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -142,7 +145,6 @@ public class SelectPhotoDialog extends DialogActivity implements OnClickListener
 							finish();
 						}
 					});
-
 					return;
 				}
 				finish();
@@ -184,6 +186,7 @@ public class SelectPhotoDialog extends DialogActivity implements OnClickListener
 				break;
 		}
 	}
+	@RequiresApi(api = Build.VERSION_CODES.M)
 	private void goCramre() {
 		if (Integer.parseInt(Build.VERSION.SDK)>=23  ) {
 			int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.CAMERA);

@@ -5,18 +5,13 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_rect_top_0dp"
     >
-    <com.zipingfang.jindiexuan.view.SquareRelativeLayout
+    <ImageView
+        android:id="@+id/iv_commodity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <ImageView
-            android:id="@+id/iv_commodity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/test_commodity_01"
-            android:scaleType="centerCrop"
-            />
-    </com.zipingfang.jindiexuan.view.SquareRelativeLayout>
+        android:src="@mipmap/test_commodity_01"
+        android:scaleType="centerCrop"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +20,9 @@
         <TextView
             style="@style/text"
             android:text="巴塞罗那之夜"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
             android:maxLines="1"
             android:ellipsize="end"
             />
@@ -35,6 +32,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
+            android:layout_marginTop="8dp"
             android:maxLines="1"
             android:ellipsize="end"
             />

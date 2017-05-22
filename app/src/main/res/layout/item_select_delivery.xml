@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    >
+    <TextView
+        android:id="@+id/tv_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/textAccent_7e"
+        android:text="福田区"
+        android:gravity="center"
+        android:padding="4dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:background="@drawable/radius_25dp_white_bg_line_accent_7e_1dp"
+        />
+</LinearLayout>

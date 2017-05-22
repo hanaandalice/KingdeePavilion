@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:background="@color/bg_Color"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="首页"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+        <View
+            style="@style/view_line_h"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -27,7 +45,7 @@
                 <com.xilada.xldutils.view.BannerLayout
                     android:id="@+id/bannerLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="160dp"
                     >
                     <ImageView
                         android:id="@+id/img"

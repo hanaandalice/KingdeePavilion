@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xilada.xldutils.activitys.BaseActivity;
+import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 public class StartActivity extends BaseActivity implements View.OnClickListener{
 //    R.mipmap.iv_start_bg_one, R.mipmap.iv_start_bg_two, R.mipmap.iv_start_bg_three
 //    R.mipmap.bg_welcome,
-    private int[] imageInteger = {R.mipmap.bg_start_one, R.mipmap.bg_start_two};
+    private int[] imageInteger = {R.mipmap.bg_start_one, R.mipmap.bg_start_two,R.mipmap.bg_start_two};
     private List<ImageView> listImage = new ArrayList<ImageView>();
     private boolean isScrolling;
     private boolean isStart = false;
@@ -57,7 +58,7 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
                 if (position == listImage.size() - 1 && positionOffset == 0 && positionOffsetPixels == 0 && isScrolling) {
                     if (!isStart) {
                         isStart = true;
-                        goActivity(MainActivity.class);
+                        goActivity(LoginActivity.class);
 //                        if (SharedPreferencesUtils.getBoolean(Utils.IS_LOGIN)){
 //                            goActivity(MainActivity.class);
 //                        }else{
@@ -91,7 +92,7 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.view_start:
                 if (position+1==imageInteger.length){
-                    goActivity(MainActivity.class);
+                    goActivity(LoginActivity.class);
 //                    if (SharedPreferencesUtils.getBoolean(Utils.IS_LOGIN)){
 //                        goActivity(MainActivity.class);
 //                    }else{
@@ -101,7 +102,7 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.tv_jump_over:
-                goActivity(MainActivity.class);
+                goActivity(LoginActivity.class);
 //                if (SharedPreferencesUtils.getBoolean(Utils.IS_LOGIN)){
 //                    goActivity(MainActivity.class);
 //                }else{
@@ -149,11 +150,11 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
             for (int i = 0;i<count;i++){
                 ImageView view = new ImageView(this);
                 indicatorViews[i] = view;
-                LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(dip2px(5),dip2px(5));
+                LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(dip2px(18),dip2px(3));
                 params.rightMargin = dip2px(5);
                 view.setLayoutParams(params);
                 view.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                view.setBackgroundResource(com.xilada.xldutils.R.drawable.page_indicator);
+                view.setBackgroundResource(com.xilada.xldutils.R.drawable.page_indication_rect);
                 if (i == 0){
                     view.setSelected(true);
                 }

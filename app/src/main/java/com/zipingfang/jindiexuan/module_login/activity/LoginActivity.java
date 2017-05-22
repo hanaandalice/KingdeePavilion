@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.tool.IsMobilieNum;
 import com.xilada.xldutils.tool.StatusBarUtils;
+import com.xilada.xldutils.utils.PermissionManager;
+import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.MainActivity;
 import com.zipingfang.jindiexuan.R;
 
@@ -50,7 +52,13 @@ public class LoginActivity extends TitleBarActivity {
         hideTitle(true);
         setViewHide(true);
         unbinder = ButterKnife.bind(this);
-
+        PermissionManager.request(this, new String[]{
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.READ_PHONE_STATE,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, "正常使用必需的权限", 24);
     }
     @OnClick({R.id.tv_forget_password,R.id.tv_login,R.id.tv_register})
     void onClicks(View view){
@@ -74,6 +82,7 @@ public class LoginActivity extends TitleBarActivity {
                     return;
                 }
                 goActivity(MainActivity.class);
+                Toast.create(LoginActivity.this).show(" 提交成功 ");
                 finish();
                 break;
             case R.id.tv_register:

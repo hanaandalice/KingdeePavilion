@@ -6,6 +6,7 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.utils.PermissionManager;
 import com.zipingfang.jindiexuan.entity.TabEntity;
 import com.zipingfang.jindiexuan.module_grabone.GraboneFragment;
@@ -44,9 +45,9 @@ public class MainActivity extends TitleBarActivity {
 
     @Override
     protected void initView() throws JSONException, IllegalAccessException {
-        setTitle("首页");
+//        setTitle("首页");
+        hideTitle(true);
         hideLeftButton();
-        showTitleBarLine(true);
         unbinder = ButterKnife.bind(this);
         PermissionManager.request(this, new String[]{
                 android.Manifest.permission.CAMERA,
@@ -70,16 +71,21 @@ public class MainActivity extends TitleBarActivity {
         bottom_common_layout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+                if (position==3) {
+                    StatusBarUtils.transparencyBar(MainActivity.this);
+                    StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.colorAccent);
+                }else{
+                    StatusBarUtils.StatusBarLightMode(MainActivity.this);
+                    StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.white);
 
+                }
             }
             @Override
             public void onTabReselect(int position) {
 
             }
         });
-
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

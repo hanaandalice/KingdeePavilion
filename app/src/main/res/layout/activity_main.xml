@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/bg_Color"
     tools:context="com.zipingfang.jindiexuan.MainActivity">
-        
+
     <FrameLayout
         android:id="@+id/ct_fragment"
         android:layout_width="match_parent"

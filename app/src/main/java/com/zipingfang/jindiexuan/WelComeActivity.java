@@ -7,7 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.zipingfang.jindiexuan.module_login.activity.AuthenticateActivity;
 import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
+import com.zipingfang.jindiexuan.module_login.activity.RegisterPersonalInformationActivity;
 
 import org.json.JSONException;
 
@@ -56,6 +58,7 @@ public class WelComeActivity extends TitleBarActivity {
                 if (isFirst()){
                     goActivity(StartActivity.class);
                 }else{
+//                    goActivity(MainActivity.class);
                     goActivity(LoginActivity.class);
                 }
                 finish();

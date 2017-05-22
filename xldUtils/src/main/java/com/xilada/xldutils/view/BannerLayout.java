@@ -31,7 +31,7 @@ public class BannerLayout extends FrameLayout implements ViewPager.OnPageChangeL
     private LinearLayout indicator;
     private ImageView[] indicatorViews;
     private String indicatorBgColor = "#00000000";
-    private int indicatorHeight = 20;//默认高度，单位dip
+    private int indicatorHeight = 16;//默认高度，单位dip
     private float aspect = -1f;
     private int interval = 5*1000;//5秒
     private boolean showIndicator = true;

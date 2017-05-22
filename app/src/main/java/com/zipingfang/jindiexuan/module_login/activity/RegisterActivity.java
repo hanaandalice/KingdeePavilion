@@ -12,6 +12,7 @@ import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.tool.IsMobilieNum;
 import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.view.gradation.StatusBarUtil;
 
 import org.json.JSONException;
 
@@ -44,7 +45,6 @@ public class RegisterActivity extends TitleBarActivity {
     @BindView(R.id.tv_login)
     TextView tv_login;
 
-
     private Unbinder unbinder;
     private int num =0;
     private TimeCount timeCount;
@@ -70,17 +70,20 @@ public class RegisterActivity extends TitleBarActivity {
             case R.id.tv_get_code:
                 tv_get_code.setClickable(false);
                 if (TextUtils.isEmpty(et_phone.getText().toString())) {
-                    tv_prompt.setText("请输入手机号码");
+                    tv_prompt.setText("请输入手机号");
                     handler.postDelayed(runnable,2000);
+                    tv_get_code.setClickable(true);
                     return;
                 }
                 if (!IsMobilieNum.isMobileNumber(et_phone.getText().toString())) {
-                    Toast.create(RegisterActivity.this).show("手机格式不正确");
+                    tv_prompt.setText("手机格式不正确");
                     handler.postDelayed(runnable,2000);
+                    tv_get_code.setClickable(true);
                     return;
                 }
                 num =60;
                 timeCount.start();
+                tv_get_code.setBackgroundDrawable(getResources().getDrawable(R.drawable.radius_25dp_hint_a5_bg));
                 break;
             case R.id.tv_service_agreement:
                 goActivity(ServiceAgreementActivity.class);
@@ -89,23 +92,23 @@ public class RegisterActivity extends TitleBarActivity {
                 tv_register.setClickable(false);
                 handler.postDelayed(runnable,2000);
                 if (TextUtils.isEmpty(et_phone.getText().toString())) {
-                    tv_prompt.setText("请输入手机号码");
+                    tv_prompt.setText("请输入手机号");
                     return;
                 }
                 if (!IsMobilieNum.isMobileNumber(et_phone.getText().toString())) {
-                    Toast.create(RegisterActivity.this).show("手机格式不正确");
+                    tv_prompt.setText("手机格式不正确");
                     return;
                 }
                 if (TextUtils.isEmpty(et_code.getText().toString())) {
-                    tv_prompt.setText("请输入验证码");
+                    tv_prompt.setText("请输验证码");
                     return;
                 }
                 if (TextUtils.isEmpty(et_password.getText().toString())) {
-                    tv_prompt.setText("请输入密码");
+                    tv_prompt.setText("请输密码");
                     return;
                 }
                 if (TextUtils.isEmpty(et_confirm_password.getText().toString())) {
-                    tv_prompt.setText("请输入确认密码");
+                    tv_prompt.setText("请输确认密码");
                     return;
                 }
                 if (!TextUtils.equals(et_password.getText().toString(),et_confirm_password.getText().toString())) {
@@ -145,6 +148,7 @@ public class RegisterActivity extends TitleBarActivity {
         @Override
         public void onFinish() {// 计时完毕
             tv_get_code.setText(getResources().getString(R.string.get_code));
+            tv_get_code.setBackgroundDrawable(getResources().getDrawable(R.drawable.radius_25dp_transparent_bg_line_white_1dp));
             tv_get_code.setClickable(true);
         }
         @Override

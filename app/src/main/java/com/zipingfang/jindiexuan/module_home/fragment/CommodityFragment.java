@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.xilada.xldutils.fragment.BaseLazyFragment;
+import com.xilada.xldutils.tool.Srceen;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.module_home.adapter.HomeCommodityAdapter;
 import com.zipingfang.jindiexuan.module_home.model.HomeCommodityModel;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CommodityFragment  extends BaseLazyFragment{
     private HomeCommodityAdapter homeCommodityAdapter;
     private RecyclerView recyclerView;
+
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_home_commodity;
@@ -46,7 +48,8 @@ public class CommodityFragment  extends BaseLazyFragment{
         homeCommodityModelList.add(new HomeCommodityModel());
         homeCommodityModelList.add(new HomeCommodityModel());
         homeCommodityModelList.add(new HomeCommodityModel());
-        homeCommodityAdapter =new HomeCommodityAdapter(homeCommodityModelList,getActivity());
+        int height = Srceen.getScreen(getActivity())[0];
+        homeCommodityAdapter =new HomeCommodityAdapter(homeCommodityModelList,getActivity(),height);
         recyclerView.setAdapter(homeCommodityAdapter);
     }
 
