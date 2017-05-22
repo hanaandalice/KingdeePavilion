@@ -55,6 +55,7 @@ public class RegisterPersonalInformationActivity extends TitleBarActivity {
     private String imagePath = "";
     private String sex="";
     private String delivery;
+
     @Override
     protected int setContentLayout() {
         return R.layout.activity_register_personal_information;
@@ -123,7 +124,7 @@ public class RegisterPersonalInformationActivity extends TitleBarActivity {
                     }
                     break;
                 case SEX_DELIVERY:
-                    delivery =data.getStringExtra(SelectSexActivity.DATA);
+                    delivery =data.getStringExtra(SelectedDeliveryActivity.DATA);
                     if (!TextUtils.isEmpty(delivery)) {
                         tv_delivery_area.setText(delivery);
                     }

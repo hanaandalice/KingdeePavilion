@@ -41,6 +41,7 @@
             android:layout_marginRight="20dp"
             />
         <TextView
+            android:id="@+id/tv_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -83,7 +84,7 @@
     <View
         style="@style/view_line_h"/>
     <LinearLayout
-        android:id="@+id/layout_select_phont"
+        android:id="@+id/layout_select_phone"
         style="@style/ll_h_layout_no_margin"
         >
         <TextView
@@ -92,6 +93,7 @@
             android:layout_marginRight="20dp"
             />
         <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -100,7 +102,7 @@
             android:textSize="14sp"
             android:textColorHint="@color/hintColor_99"
             android:hint="请绑定手机号"
-            android:text="1234124131231"
+            android:text="1234124131"
             android:textColor="@color/textColor"
             android:drawablePadding="10dp"
             />
@@ -108,6 +110,7 @@
     <View
         style="@style/view_line_h"/>
     <LinearLayout
+        android:id="@+id/layout_select_area"
         style="@style/ll_h_layout_no_margin">
         <TextView
             style="@style/hint_text"
@@ -115,6 +118,7 @@
             android:layout_marginRight="20dp"
             />
         <TextView
+            android:id="@+id/tv_area"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

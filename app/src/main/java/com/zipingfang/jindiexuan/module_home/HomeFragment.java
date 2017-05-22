@@ -17,6 +17,7 @@ import com.xilada.xldutils.fragment.BaseLazyFragment;
 import com.xilada.xldutils.view.BannerLayout;
 import com.xilada.xldutils.view.utils.ViewHolder;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.module_home.activity.InformationListActivity;
 import com.zipingfang.jindiexuan.module_home.adapter.SlidingFragmentViewPager;
 import com.zipingfang.jindiexuan.view.view_switcher.UpDownViewSwitcher;
 
@@ -89,6 +90,7 @@ public class HomeFragment extends BaseLazyFragment {
                 nextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        goActivity(InformationListActivity.class);
                     }
                 });
             }

@@ -157,7 +157,7 @@ public class RegisterActivity extends TitleBarActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tv_get_code.setText(num+"S");
+                    tv_get_code.setText(num+"s");
                 }
             });
             tv_get_code.setClickable(false);

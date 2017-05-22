@@ -35,6 +35,7 @@ public class DeliveryAdapter extends BaseRecyclerAdapter<String> {
                     .getDrawable(R.drawable.radius_25dp_white_bg_line_accent_7e_1dp));
             holder.<TextView>bind(R.id.tv_delivery).setTextColor(context.getResources().getColor(R.color.textAccent_7e));
         }
+        holder.setText(R.id.tv_delivery,s);
     }
 
     public void setSelectPosition(int selectPosition) {

@@ -94,6 +94,8 @@
         <activity android:name=".module_user.activity.PersonalInformationActivity"/>
         <activity android:name=".module_user.activity.PartTimeDriverStatueActivity"/>
         <activity android:name=".module_user.activity.SelectNickNameActivity"/>
+        <activity android:name=".module_user.activity.ModifyPhoneActivity"/>
+        <activity android:name=".module_home.activity.InformationListActivity"/>
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
                 android:theme="@style/Dialog"
