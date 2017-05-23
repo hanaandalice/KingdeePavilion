@@ -134,6 +134,9 @@
     </style>
     <!--让Dialog设置 -->
     <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <!-- 边框 -->
         <item name="android:windowFrame">@null</item>

@@ -4,14 +4,18 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.tool.IsMobilieNum;
 import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
 import com.zipingfang.jindiexuan.view.gradation.StatusBarUtil;
 
 import org.json.JSONException;
@@ -20,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/5/18.
@@ -84,6 +89,7 @@ public class RegisterActivity extends TitleBarActivity {
                 num =60;
                 timeCount.start();
                 tv_get_code.setBackgroundDrawable(getResources().getDrawable(R.drawable.radius_25dp_hint_a5_bg));
+                getCode();
                 break;
             case R.id.tv_service_agreement:
                 goActivity(ServiceAgreementActivity.class);
@@ -112,16 +118,61 @@ public class RegisterActivity extends TitleBarActivity {
                     return;
                 }
                 if (!TextUtils.equals(et_password.getText().toString(),et_confirm_password.getText().toString())) {
-                    tv_prompt.setText("两次密码不一致");
+                    tv_prompt.setText("两次密码输入不同");
                     return;
                 }
                 goActivity(RegisterPersonalInformationActivity.class);
+                finish();
+//                registerInformation();
                 break;
             case R.id.tv_login:
                 finish();
                 break;
         }
     }
+
+    private void registerInformation() {
+        RequestManager.register(et_phone.getText().toString(), et_code.getText().toString(), et_password.getText().toString(), et_confirm_password.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
+            @Override
+            public void onResponse(ResultData response) {
+                Toast.create(RegisterActivity.this).show(""+response.toString());
+                goActivity(RegisterPersonalInformationActivity.class);
+                finish();
+            }
+
+            @Override
+            public void onResult() {
+                super.onResult();
+            }
+            @Override
+            public void onError(Call call, String e) {
+                super.onError(call, e);
+                Toast.create(RegisterActivity.this).show(""+e);
+            }
+        });
+    }
+
+    private static final String TAG = "RegisterActivity";
+    private void getCode() {
+        RequestManager.getMsg(et_phone.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
+            @Override
+            public void onResponse(ResultData response) {
+                Toast.create(RegisterActivity.this).show(""+response.getString());
+                Log.d(TAG, "onResponse: --------->"+response.getMessage());
+            }
+            @Override
+            public void onError(Call call, String e) {
+                super.onError(call, e);
+                Toast.create(RegisterActivity.this).show(""+e);
+            }
+
+            @Override
+            public void onResult() {
+                super.onResult();
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

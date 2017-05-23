@@ -47,10 +47,10 @@ public class ResultData implements Serializable {
 
     @Override
     public String toString() {
-        return "ResultData{" +
+        return "{" +
                 "code=" + code +
-                ", message='" + message + '\'' +
-                ", data=" + data +
+                ", msg='" + message + '\'' +
+                ", info=" + data +
                 '}';
     }
 }

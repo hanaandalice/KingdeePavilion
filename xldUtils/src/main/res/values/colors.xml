@@ -21,7 +21,7 @@
     <color name="textColorHint">#7C7C7C</color>
     <color name="tipTextColor">#7e7e7e</color>
     <color name="theme_color">#ffc600</color>
-    <color name="l_transparent">#80000000</color>
+    <color name="l_transparent">#30000000</color>
     <color name="l_white">#fbfaf5</color>
     <color name="disableColor">#a09e9f</color>
     <color name="bg_green">#80C643</color>

@@ -3,17 +3,22 @@ package com.zipingfang.jindiexuan.module_login.activity;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.tool.IsMobilieNum;
-import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.utils.PermissionManager;
+import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.MainActivity;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
+import com.zipingfang.jindiexuan.utils.Const;
 
 import org.json.JSONException;
 
@@ -21,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/5/18.
@@ -81,15 +87,41 @@ public class LoginActivity extends TitleBarActivity {
                     tv_prompt.setText("请输入密码");
                     return;
                 }
+                SharedPreferencesUtils.save(Const.User.IS_LOGIN,true);
+                Toast.create(LoginActivity.this).show("登录成功");
                 goActivity(MainActivity.class);
-                Toast.create(LoginActivity.this).show(" 提交成功 ");
                 finish();
+//                login();
                 break;
             case R.id.tv_register:
                 goActivity(RegisterActivity.class);
                 break;
         }
     }
+    private static final String TAG = "LoginActivity";
+    private void login() {
+        RequestManager.login(et_phone.getText().toString(), et_password.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
+            @Override
+            public void onResponse(ResultData response) {
+                Log.d(TAG, "onResponse: --------->"+response.toString());
+                SharedPreferencesUtils.save(Const.User.IS_LOGIN,true);
+                Toast.create(LoginActivity.this).show("登录成功");
+                goActivity(MainActivity.class);
+                finish();
+            }
+            @Override
+            public void onError(Call call, String e) {
+                super.onError(call, e);
+                Toast.create(LoginActivity.this).show(""+e);
+            }
+
+            @Override
+            public void onResult() {
+                super.onResult();
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

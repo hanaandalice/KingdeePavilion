@@ -37,8 +37,8 @@ import okhttp3.Call;
 public class RequestManager {
     public static final String SPLIT = "=";
     public static final String AND = "&";
-    private static final String RESULT_CODE = "result_code";
-    private static final String RESULT_DATA = "result_data";
+    private static final String RESULT_CODE = "code";
+    private static final String RESULT_DATA = "info";
     private static final String PARSER_ERROR = "数据解析错误！";//数据解析错误
     private static final String REQUEST_ERROR = "数据异常！";
     public static final String PAGE_SIZE = "15";//默认每页数据条数
@@ -109,7 +109,8 @@ public class RequestManager {
      * @param callback 回调
      */
     private static final String TAG = "RequestManager";
-    private static void secretRequest(Map<String,Object> keyValue, final HttpUtils.ResultCallback<ResultData> callback) {
+    private static void secretRequest(String field,Map<String,Object> keyValue, final HttpUtils.ResultCallback<ResultData> callback) {
+
 //        //加密
 //        Map<String, String> params = new HashMap<>();
 //        Set<String> keySet = keyValue.keySet();
@@ -124,8 +125,8 @@ public class RequestManager {
 //            }
 //        }
 //        params.put("key",DES.decryptDES(builder.toString()));
-        Log.d(TAG, "secretRequest: ------>"+keyValue);
-        HttpUtils.postAsyn(Api.BASE_URL, keyValue, new HttpUtils.ResultCallback<String>() {
+        Log.d(TAG, "secretRequest: ------->"+keyValue);
+        HttpUtils.postAsyn(Api.BASE_URL+field, keyValue, new HttpUtils.ResultCallback<String>() {
             @Override
             public void onResult() {
                 super.onResult();
@@ -138,10 +139,10 @@ public class RequestManager {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     int code = jsonObject.optInt(RESULT_CODE, -1);
-                    String message = jsonObject.optString("message");
+                    String message = jsonObject.optString("msg");
                     resultData.setCode(code);
                     resultData.setMessage(message);
-                    if (code == 0) {
+                    if (code == 1) {
                         String data = jsonObject.optString(RESULT_DATA);
                         if (!TextUtils.isEmpty(data)) {
 //                            String unDecryptData = DES.decryptDES(data);
@@ -505,25 +506,91 @@ public class RequestManager {
     }
 
     /**
-     userPhone 	是 	string 	用户手机号
-     vcode 	是 	string 	验证码
-     验证验证码
+     phone:string
+     手机号
+     code:string
+     验证码
+     password:string
+     密码
+     repassword:string
+     重复密码
+
+     注册
      *  @param callback 回调
      */
-    public static void registerVerificationVCode(String userPhone, String vcode, final HttpUtils.ResultCallback<ResultData> callback) {
+    public static void register(String phone, String code,String password, String repassword,final HttpUtils.ResultCallback<ResultData> callback) {
         /*final String request = ParamsBuilder.create()
                 .append("action", action)
                 .append("targetId", targetId)
                 .build();*/
         Map<String,Object> map=new HashMap<>();
-        map.put("action","registerVerificationVCode");
-        map.put("userPhone",userPhone);
-        map.put("vcode",vcode);
-        secretRequest(map, callback);
+        map.put("phone",phone);
+        map.put("code",code);
+        map.put("password",password);
+        map.put("repassword",repassword);
+        secretRequest("/Index/register",map, callback);
     }
 
+    /**
+     phone:string
+     手机号
 
+     获取验证码
+     *  @param callback 回调
+     */
+    public static void getMsg(String phone,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("phone",phone);
+        secretRequest("/Index/getMsg",map, callback);
+    }
+    /**
+     phone:string
+     手机号
+     password:string
+     密码
 
+      登录
+     *  @param callback 回调
+     */
+    public static void login(String phone,String password,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("phone",phone);
+        map.put("password",password);
+        secretRequest("Index/login/",map, callback);
+    }
 
+    /**
+     phone:string
+     手机号
+     code:string
+     验证码
+     passowrd:string
+     密码
+     repsd:string
+     重复密码
+
+     忘记密码
+     *  @param callback 回调
+     */
+    public static void forget(String phone,String code,String passowrd,String repsd,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("phone",phone);
+        map.put("code",code);
+        map.put("passowrd",passowrd);
+        map.put("repsd",repsd);
+        secretRequest("/Index/forget",map, callback);
+    }
 
 }

@@ -54,6 +54,7 @@ public class SelectSexActivity extends DialogActivity implements View.OnClickLis
     }
     private void getData() {
         constellation_wheelview.setViewAdapter(new SexWheelAdapter(this, constellationList));
+        constellation_wheelview.setShadowFontSize(20,18,16);
     }
     @Override
     public void onChanged(MyWheelView wheel, int oldValue, int newValue) {

@@ -155,7 +155,7 @@ public class HttpUtils {
      * @param params 参数
      */
     private void _postAsyn(String url, final ResultCallback callback, Map<String, Object> params) {
-//        Log.d("tag","----表单---"+url+params);
+        Log.d("tag","----表单---"+url+params);
         Request request = buildPostRequest(url, params);
         deliveryResult(callback, request,defaultTimeOut);
     }
@@ -290,10 +290,10 @@ public class HttpUtils {
 //                .type(MultipartBuilder.FORM);
         builder.setType(MultipartBody.FORM);
         Set<Map.Entry<String, String>> entries = params.entrySet();
-
         for (Map.Entry<String, String> entry : entries) {
-            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + entry.getKey() + "\""),
-                    RequestBody.create(null, entry.getValue()));
+            builder.addPart(Headers.of("Content-Disposition"
+                    , "form-data; name=\"" + entry.getKey() + "\"")
+                    ,RequestBody.create(null, entry.getValue()));
         }
 
         if (files != null) {
@@ -323,6 +323,8 @@ public class HttpUtils {
         }
         return contentTypeFor;
     }
+
+    private static final String TAG = "HttpUtils";
     private static final String SESSION_KEY = "Set-Cookie";
     private static final String mSessionKey = "JSESSIONID";
     private Map<String, String> mSessions = new HashMap<>();
@@ -337,13 +339,12 @@ public class HttpUtils {
                 sendResultCallback(callback);
                 sendFailedStringCallback(call, ERROR, callback);
             }
+
             @Override
             public void onResponse(Call call,final Response response) {
                 try {
-                Log.d("tag","----------str---->"+request.toString());
                     if (callback.mType == String.class) {
                         final String string = response.body().string();
-                        Utils.systemErr(string);
                         sendResultCallback(callback);
                         sendSuccessResultCallback(string, callback);
                     } else if (callback.mType == JsonReader.class){
@@ -400,6 +401,7 @@ public class HttpUtils {
             @Override
             public void run() {
                 if (callback != null) {
+                    Log.d(TAG, "run: ----->"+object.toString());
                     callback.onResponse(object);
                 }
             }

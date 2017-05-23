@@ -47,6 +47,7 @@ public class SelectPhotoDialog extends DialogActivity implements OnClickListener
 	protected int exitAnim() {
 		return 0;
 	}
+
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

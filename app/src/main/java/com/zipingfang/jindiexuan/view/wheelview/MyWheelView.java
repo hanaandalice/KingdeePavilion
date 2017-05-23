@@ -26,8 +26,10 @@ public class MyWheelView extends View {
 
 	private int[] SHADOWS_FONT_SIZE = new int[] { 12,
 			14, 18 };
-	private int[] SHADOWS_COLORS = new int[] {0xefF0F0F0,
-			0xcfF0F0F0, 0x3fF0F0F0};
+//	private int[] SHADOWS_COLORS = new int[] {0xefF0F0F0,
+//			0xcfF0F0F0, 0x3fF0F0F0};
+	private int[] SHADOWS_COLORS = new int[] {0xefFFFFFF,
+			0xcfFFFFFF, 0x3fFFFFFF};
 	private static final int ITEM_OFFSET_PERCENT = 0;
 
 	private static final int PADDING = 10;

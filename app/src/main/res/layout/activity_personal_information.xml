@@ -27,7 +27,7 @@
             android:textSize="14sp"
             android:textColor="@color/hintColor_99"
             android:text="更换头像"
-            android:drawablePadding="10dp"
+            android:drawablePadding="6dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -52,7 +52,7 @@
             android:hint="请输入昵称"
             android:text="小赵"
             android:textColor="@color/textColor"
-            android:drawablePadding="10dp"
+            android:drawablePadding="6dp"
             />
     </LinearLayout>
     <View
@@ -78,7 +78,7 @@
             android:hint="请选择性别"
             android:text="男"
             android:textColor="@color/textColor"
-            android:drawablePadding="10dp"
+            android:drawablePadding="6dp"
             />
     </LinearLayout>
     <View
@@ -92,20 +92,20 @@
             android:text="手机号"
             android:layout_marginRight="20dp"
             />
+
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawablePadding="6dp"
             android:drawableRight="@mipmap/icon_right_grey"
             android:gravity="center_vertical|right"
-            android:textSize="14sp"
-            android:textColorHint="@color/hintColor_99"
             android:hint="请绑定手机号"
             android:text="1234124131"
             android:textColor="@color/textColor"
-            android:drawablePadding="10dp"
-            />
+            android:textColorHint="@color/hintColor_99"
+            android:textSize="14sp" />
     </LinearLayout>
     <View
         style="@style/view_line_h"/>
@@ -129,7 +129,7 @@
             android:hint="请选择区域"
             android:text="深圳-南山区"
             android:textColor="@color/textColor"
-            android:drawablePadding="10dp"
+            android:drawablePadding="6dp"
             />
     </LinearLayout>
     <TextView
@@ -157,12 +157,13 @@
             android:hint="去认证"
             android:text="已认证"
             android:textColor="@color/textColor"
-            android:drawablePadding="10dp"
+            android:drawablePadding="6dp"
             />
     </LinearLayout>
     <View
         style="@style/view_line_h"/>
     <LinearLayout
+        android:id="@+id/layout_full_time_driver"
         style="@style/ll_h_layout_no_margin"
         >
         <TextView
@@ -180,7 +181,7 @@
             android:textColorHint="@color/hintColor_99"
             android:hint="去认证"
             android:textColor="@color/textColor"
-            android:drawablePadding="10dp"
+            android:drawablePadding="6dp"
             />
     </LinearLayout>
 </LinearLayout>

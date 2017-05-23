@@ -7,9 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.zipingfang.jindiexuan.module_login.activity.AuthenticateActivity;
 import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
 import com.zipingfang.jindiexuan.module_login.activity.RegisterPersonalInformationActivity;
+import com.zipingfang.jindiexuan.module_user.activity.PersonalInformationActivity;
+import com.zipingfang.jindiexuan.utils.Const;
 
 import org.json.JSONException;
 
@@ -58,8 +61,12 @@ public class WelComeActivity extends TitleBarActivity {
                 if (isFirst()){
                     goActivity(StartActivity.class);
                 }else{
-//                    goActivity(MainActivity.class);
-                    goActivity(LoginActivity.class);
+                    if (SharedPreferencesUtils.getBoolean(Const.User.IS_LOGIN)){
+                        goActivity(MainActivity.class);
+                    }else{
+                        goActivity(LoginActivity.class);
+                    }
+//                    goActivity(RegisterPersonalInformationActivity.class);
                 }
                 finish();
             }

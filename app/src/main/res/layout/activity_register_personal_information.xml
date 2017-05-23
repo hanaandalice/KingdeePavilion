@@ -10,12 +10,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/white"
-        android:gravity="center_horizontal"
-        >
+        android:gravity="center_horizontal">
+
         <LinearLayout
             android:id="@+id/layout_selected_head_img"
-            style="@style/ll_h_layout_no_margin"
-            >
+            style="@style/ll_h_layout_no_margin">
+
             <com.xilada.xldutils.view.RoundAngleImageView
                 android:id="@+id/iv_head_img"
                 android:layout_width="60dp"
@@ -34,7 +34,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/hintColor_99"
                 android:text="更换头像"
-                android:drawablePadding="10dp"
+                android:drawablePadding="6dp"
                 />
         </LinearLayout>
         <View
@@ -78,7 +78,7 @@
                 android:textColorHint="@color/hintColor_99"
                 android:hint="请选择性别"
                 android:textColor="@color/hintColor_66"
-                android:drawablePadding="10dp"
+                android:drawablePadding="6dp"
                 />
         </LinearLayout>
         <View
@@ -102,7 +102,7 @@
                 android:textColorHint="@color/hintColor_99"
                 android:hint="请选择配送区域"
                 android:textColor="@color/hintColor_66"
-                android:drawablePadding="10dp"
+                android:drawablePadding="6dp"
                 />
         </LinearLayout>
         <View

@@ -51,6 +51,8 @@ public class PersonalInformationActivity extends TitleBarActivity {
     TextView tv_phone;
     @BindView(R.id.tv_area)
     TextView tv_area;
+    @BindView(R.id.layout_full_time_driver)
+    LinearLayout layout_full_time_driver;
 
     private Unbinder unbinder;
     private static  final int PICPHOTO =15;
@@ -71,13 +73,13 @@ public class PersonalInformationActivity extends TitleBarActivity {
         unbinder = ButterKnife.bind(this);
 
     }
-
     @OnClick({R.id.layout_part_time_driver
             ,R.id.layout_selected_head_img
             ,R.id.layout_select_nickname
             ,R.id.layout_select_phone
             ,R.id.layout_select_area
             ,R.id.layout_select_sex
+            ,R.id.layout_full_time_driver
     })
     void onClicks(View view){
         switch (view.getId()) {
@@ -101,6 +103,9 @@ public class PersonalInformationActivity extends TitleBarActivity {
                 bundle.putString("type","1");
                 bundle.putString("delivery","南山区");
                 goActivityForResult(SelectedDeliveryActivity.class,bundle,SEX_DELIVERY);
+                break;
+            case R.id.layout_full_time_driver:
+                goActivity(FullTimeDriverAuthenticateActivity.class);
                 break;
         }
     }

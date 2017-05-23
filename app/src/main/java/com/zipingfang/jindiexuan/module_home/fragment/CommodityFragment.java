@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.xilada.xldutils.fragment.BaseLazyFragment;
+import com.xilada.xldutils.tool.Densityuitl;
 import com.xilada.xldutils.tool.Srceen;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.module_home.adapter.HomeCommodityAdapter;
@@ -37,7 +38,7 @@ public class CommodityFragment  extends BaseLazyFragment{
         super.onActivityCreated(savedInstanceState);
 
         recyclerView =findViewById(R.id.recyclerView);
-        GridSpacingItemDecoration layoutDecoration = new GridSpacingItemDecoration(2,20,false);
+        GridSpacingItemDecoration layoutDecoration = new GridSpacingItemDecoration(2, Densityuitl.dip2px(getActivity(),10),Densityuitl.dip2px(getActivity(),10),false);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.addItemDecoration(layoutDecoration);
 

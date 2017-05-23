@@ -76,7 +76,7 @@
                     android:hint="请选择司机种类"
                     android:text="汽车司机"
                     android:textColor="@color/text_color"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="6dp"
                     />
             </LinearLayout>
             <TextView

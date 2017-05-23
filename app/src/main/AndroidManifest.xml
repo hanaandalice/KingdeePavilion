@@ -96,6 +96,13 @@
         <activity android:name=".module_user.activity.SelectNickNameActivity"/>
         <activity android:name=".module_user.activity.ModifyPhoneActivity"/>
         <activity android:name=".module_home.activity.InformationListActivity"/>
+        <activity android:name=".module_user.activity.PunchActivity"/>
+        <activity android:name=".module_user.activity.MyWallectActivity"/>
+        <activity android:name=".module_user.activity.NoticeMesssageActivity"/>
+        <activity android:name=".module_user.activity.RecommendActivity"/>
+        <activity android:name=".module_user.activity.OrdersSettingActivity"/>
+        <activity android:name=".module_user.activity.LeaderBoardActivity"/>
+        <activity android:name=".module_user.activity.FullTimeDriverAuthenticateActivity"/>
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
                 android:theme="@style/Dialog"

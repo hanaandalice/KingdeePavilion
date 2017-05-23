@@ -10,6 +10,7 @@ import android.view.View;
 import com.flyco.dialog.widget.NormalDialog;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.adapter.BaseRecyclerAdapter;
+import com.xilada.xldutils.tool.Densityuitl;
 import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.module_login.adapter.DeliveryAdapter;
@@ -38,6 +39,7 @@ public class SelectedDeliveryActivity extends TitleBarActivity {
     private String type;
     private String delivery;
     private int selectPosition=-1;
+
     @Override
     protected int setContentLayout() {
         return R.layout.activity_selected_delivery;
@@ -74,6 +76,7 @@ public class SelectedDeliveryActivity extends TitleBarActivity {
                     .titleTextColor(getResources().getColor(R.color.black))
                     .titleTextSize(16)
                     .btnNum(1)
+                    .btnTextSize(14)
                     .btnTextColor(getResources().getColor(R.color.textAccent))
                     .btnText("知道啦")
                     .showAnim(null)
@@ -89,7 +92,7 @@ public class SelectedDeliveryActivity extends TitleBarActivity {
         stringList.add("南山区");
         deliveryAdapter =new DeliveryAdapter(stringList,this);
         recyclerView_delivery.setAdapter(deliveryAdapter);
-        recyclerView_delivery.addItemDecoration(new GridSpacingItemDecoration(4,20,false));
+        recyclerView_delivery.addItemDecoration(new GridSpacingItemDecoration(4, Densityuitl.dip2px(this,16),Densityuitl.dip2px(this,10),false));
         deliveryAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
