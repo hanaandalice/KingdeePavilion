@@ -103,6 +103,7 @@
         <activity android:name=".module_user.activity.OrdersSettingActivity"/>
         <activity android:name=".module_user.activity.LeaderBoardActivity"/>
         <activity android:name=".module_user.activity.FullTimeDriverAuthenticateActivity"/>
+        <activity android:name=".module_user.activity.FullTimeDriverAuthenticateScheduleActivity"/>
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
                 android:theme="@style/Dialog"

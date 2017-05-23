@@ -121,9 +121,7 @@ public class RegisterActivity extends TitleBarActivity {
                     tv_prompt.setText("两次密码输入不同");
                     return;
                 }
-                goActivity(RegisterPersonalInformationActivity.class);
-                finish();
-//                registerInformation();
+                registerInformation();
                 break;
             case R.id.tv_login:
                 finish();
@@ -135,7 +133,8 @@ public class RegisterActivity extends TitleBarActivity {
         RequestManager.register(et_phone.getText().toString(), et_code.getText().toString(), et_password.getText().toString(), et_confirm_password.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
             @Override
             public void onResponse(ResultData response) {
-                Toast.create(RegisterActivity.this).show(""+response.toString());
+                Log.d(TAG, "onResponse: ------>"+response.toString());
+//                Toast.create(RegisterActivity.this).show(""+response.toString());
                 goActivity(RegisterPersonalInformationActivity.class);
                 finish();
             }

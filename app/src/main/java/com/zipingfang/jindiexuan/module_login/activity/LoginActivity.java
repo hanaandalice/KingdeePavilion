@@ -18,9 +18,11 @@ import com.zipingfang.jindiexuan.MainActivity;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.api.RequestManager;
 import com.zipingfang.jindiexuan.api.ResultData;
+import com.zipingfang.jindiexuan.module_login.model.LoginUserModel;
 import com.zipingfang.jindiexuan.utils.Const;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,11 +89,7 @@ public class LoginActivity extends TitleBarActivity {
                     tv_prompt.setText("请输入密码");
                     return;
                 }
-                SharedPreferencesUtils.save(Const.User.IS_LOGIN,true);
-                Toast.create(LoginActivity.this).show("登录成功");
-                goActivity(MainActivity.class);
-                finish();
-//                login();
+                login();
                 break;
             case R.id.tv_register:
                 goActivity(RegisterActivity.class);
@@ -100,10 +98,37 @@ public class LoginActivity extends TitleBarActivity {
     }
     private static final String TAG = "LoginActivity";
     private void login() {
+        showDialog("登录中...");
         RequestManager.login(et_phone.getText().toString(), et_password.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
             @Override
             public void onResponse(ResultData response) {
                 Log.d(TAG, "onResponse: --------->"+response.toString());
+                JSONObject object =response.getJsonObject();
+                LoginUserModel loginUserModel =new LoginUserModel();
+//            "login_time":"1495504744","reg_time":"1495504503","head_pic":"","area_id":"","status":"1"}
+                loginUserModel.setUid(object.optString("uid"));
+                loginUserModel.setUsername(object.optString("username"));
+                loginUserModel.setPassword(object.optString("password"));
+                loginUserModel.setRole_id(object.optString("role_id"));
+                loginUserModel.setName(object.optString("name"));
+                loginUserModel.setSex(object.optString("sex"));
+                loginUserModel.setPhone(object.optString("phone"));
+                loginUserModel.setDriver(object.optString("driver"));
+                loginUserModel.setDriver_type(object.optString("driver_type"));
+                loginUserModel.setDriver_status(object.optString("driver_status"));
+                loginUserModel.setMoney(object.optString("money"));
+                loginUserModel.setIntegral(object.optString("integral"));
+                loginUserModel.setReceive(object.optString("receive"));
+                loginUserModel.setRecommend(object.optString("recommend"));
+                loginUserModel.setWeixin(object.optString("weixin"));
+                loginUserModel.setToken(object.optString("token"));
+                loginUserModel.setLogin_time(object.optString("login_time"));
+                loginUserModel.setReg_time(object.optString("reg_time"));
+                loginUserModel.setHead_pic(object.optString("head_pic"));
+                loginUserModel.setArea_id(object.optString("area_id"));
+                loginUserModel.setStatus(object.optString("status"));
+
+
                 SharedPreferencesUtils.save(Const.User.IS_LOGIN,true);
                 Toast.create(LoginActivity.this).show("登录成功");
                 goActivity(MainActivity.class);
@@ -118,6 +143,7 @@ public class LoginActivity extends TitleBarActivity {
             @Override
             public void onResult() {
                 super.onResult();
+                dismissDialog();
             }
         });
     }

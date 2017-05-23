@@ -15,6 +15,7 @@ import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.MainActivity;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.view.XEditText;
 
 import org.json.JSONException;
 
@@ -34,9 +35,9 @@ import rx.functions.Action1;
 public class AuthenticateActivity extends TitleBarActivity {
 
     @BindView(R.id.et_name)
-    EditText et_name;
+    XEditText et_name;
     @BindView(R.id.et_id_card_number)
-    EditText et_id_card_number;
+    XEditText et_id_card_number;
     @BindView(R.id.tv_next)
     TextView tv_next;
     @BindView(R.id.tv_driver)
