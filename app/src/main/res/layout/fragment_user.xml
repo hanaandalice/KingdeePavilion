@@ -19,7 +19,7 @@
             <RelativeLayout
                 android:id="@+id/layout_banner"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="240dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -27,8 +27,8 @@
 
                 <ImageView
                     android:id="@+id/iv_head_img"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="36dp"
                     android:background="@mipmap/icon_head_defult_circle"
@@ -41,12 +41,11 @@
                     android:text="兼职汽车司机"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:layout_alignTop="@+id/iv_head_img"
-                    android:layout_toLeftOf="@+id/tv_punch"
-                    android:layout_toStartOf="@+id/tv_punch"
-                    android:layout_marginTop="46dp"
+                    android:layout_marginTop="42dp"
                     android:layout_marginRight="6dp"
-                    />
+                    android:layout_alignTop="@+id/iv_head_img"
+                    android:layout_toLeftOf="@+id/iv_head_img"
+                    android:layout_toStartOf="@+id/iv_head_img" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -89,7 +88,7 @@
                     android:paddingTop="8dp"
                     android:text="打卡"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <FrameLayout

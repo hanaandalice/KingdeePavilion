@@ -46,7 +46,7 @@ public class SelectSexActivity extends DialogActivity implements View.OnClickLis
 //         设置可见条目数量
         constellation_wheelview.setVisibleItems(5);
         constellation_wheelview.setShadowColor(0xefFFFFFF,
-                0x76FFFFFF, 0x00FFFFFF);
+                0x72FFFFFF, 0x00FFFFFF);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
