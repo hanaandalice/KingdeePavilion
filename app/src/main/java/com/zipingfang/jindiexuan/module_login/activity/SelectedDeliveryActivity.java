@@ -69,14 +69,14 @@ public class SelectedDeliveryActivity extends TitleBarActivity {
         if (!TextUtils.isEmpty(type)) {
             final NormalDialog dialog2 = new NormalDialog(this);
             dialog2.content("修改区域之后需要后台审核，\n审核通过之后根据原区域抢单。")
-                    .contentTextSize(12)
+                    .contentTextSize(14)
                     .cornerRadius(15)
                     .contentTextColor(getResources().getColor(R.color.black))
                     .style(NormalDialog.STYLE_TWO)
                     .titleTextColor(getResources().getColor(R.color.black))
-                    .titleTextSize(16)
+                    .titleTextSize(18)
                     .btnNum(1)
-                    .btnTextSize(14)
+                    .btnTextSize(16)
                     .btnTextColor(getResources().getColor(R.color.textAccent))
                     .btnText("知道啦")
                     .showAnim(null)

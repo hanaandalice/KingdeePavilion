@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_rect_top_0dp"
+    android:layout_marginTop="10dp"
     >
     <ImageView
         android:id="@+id/iv_commodity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/test_commodity_01"
         android:scaleType="centerCrop"
         />
     <LinearLayout
@@ -18,6 +18,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/tv_commodity_name"
             style="@style/text"
             android:text="巴塞罗那之夜"
             android:paddingLeft="10dp"
@@ -27,6 +28,7 @@
             android:ellipsize="end"
             />
         <TextView
+            android:id="@+id/tv_commodity_parameter"
             style="@style/hint_text_samll"
             android:text="2磅"
             android:paddingLeft="10dp"
@@ -36,7 +38,6 @@
             android:maxLines="1"
             android:ellipsize="end"
             />
-
     </LinearLayout>
 
 </LinearLayout>

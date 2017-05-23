@@ -56,6 +56,7 @@ public class XEditText extends EditText {
     }
     private void init() {
         addTextChangedListener(textWatcher);
+
     }
 
     private static final String TAG = "XEditText";

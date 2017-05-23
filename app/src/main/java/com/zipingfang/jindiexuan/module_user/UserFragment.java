@@ -170,14 +170,14 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
             case R.id.tv_out_login:
                 final NormalDialog dialog2 = new NormalDialog(getActivity());
                 dialog2.content("确定要退出当前账号？")
-                        .contentTextSize(12)
+                        .contentTextSize(14)
                         .cornerRadius(15)
                         .contentTextColor(getResources().getColor(R.color.black))
                         .style(NormalDialog.STYLE_TWO)
                         .titleTextColor(getResources().getColor(R.color.black))
-                        .titleTextSize(16)
+                        .titleTextSize(18)
                         .btnNum(2)
-                        .btnTextSize(14)
+                        .btnTextSize(16)
                         .btnTextColor(getResources().getColor(R.color.textColorHint),getResources().getColor(R.color.textAccent))
                         .btnText("取消","确认")
                         .showAnim(null)

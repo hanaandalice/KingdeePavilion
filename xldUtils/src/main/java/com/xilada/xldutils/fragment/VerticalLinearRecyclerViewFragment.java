@@ -34,6 +34,7 @@ public abstract class VerticalLinearRecyclerViewFragment extends BaseLazyFragmen
     private TextView loadMoreView;
     private RelativeLayout emptyView;
     private TextView tv_empty_data;
+    private boolean isVisibilityFooterView =false;
 
     protected abstract RecyclerView.Adapter setAdapter();
     /**
@@ -84,11 +85,12 @@ public abstract class VerticalLinearRecyclerViewFragment extends BaseLazyFragmen
                 loadMoreView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 //                loadMoreView.setHeight(DensityUtil.dip2px(this,48));
                 loadMoreView.setBackgroundColor(Color.WHITE);
-                loadMoreView.setText("载入更多...");
+//                loadMoreView.setText("载入更多...");
                 loadMoreView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 loadMoreView.setTextColor(getResources().getColor(R.color.textColor));
                 loadMoreView.setGravity(Gravity.CENTER);
-                loadMoreView.setPadding(0, DensityUtil.dip2px(context,16),0, DensityUtil.dip2px(getActivity(),16));
+//                loadMoreView.setPadding(0, DensityUtil.dip2px(context,16),0, DensityUtil.dip2px(getActivity(),16));
+                loadMoreView.setPadding(0,0,0,0);
                 ((HeaderAndFooterRecyclerAdapter)adapter).setFooterView(loadMoreView);
             }
             mRecyclerView.setAdapter(adapter);
@@ -137,7 +139,6 @@ public abstract class VerticalLinearRecyclerViewFragment extends BaseLazyFragmen
         tv_empty_data.setCompoundDrawablesWithIntrinsicBounds(null,context.getResources().getDrawable(drawable),null,null);
     }
 
-
     protected boolean useDefaultEmptyView() {
         return true;
     }
@@ -154,10 +155,18 @@ public abstract class VerticalLinearRecyclerViewFragment extends BaseLazyFragmen
             if (newState == RecyclerView.SCROLL_STATE_IDLE && adapter != null
                     && lastVisibleItem + 1 == adapter.getItemCount() && !mSwipeRefreshLayout.isRefreshing() && !isLoadMore) {
                 if (adapter instanceof HeaderAndFooterRecyclerAdapter){
+                    if (!isVisibilityFooterView) {
+                        if (loadMoreView!=null ){
+                            loadMoreView.setPadding(0, DensityUtil.dip2px(context,16),0, DensityUtil.dip2px(getActivity(),16));
+                            loadMoreView.setText("载入更多...");
+                            loadMoreView.setVisibility(View.VISIBLE);
+                        }
+                    }else{
+                        if (loadMoreView!=null ){
+                            loadMoreView.setPadding(0,0,0,0);
+                            loadMoreView.setVisibility(View.GONE);
+                        }
 
-                    if (loadMoreView!=null ){
-                        loadMoreView.setText("载入更多...");
-                        loadMoreView.setVisibility(View.VISIBLE);
                     }
                     isLoadMore = true;
                     loadMore();
@@ -235,6 +244,17 @@ public abstract class VerticalLinearRecyclerViewFragment extends BaseLazyFragmen
                     .build();
             setItemDecoration(itemDecoration);
         }
+    }
 
+    public RecyclerView getRecyclerView() {
+        return mRecyclerView;
+    }
+
+    public boolean isVisibilityFooterView() {
+        return isVisibilityFooterView;
+    }
+
+    public void setVisibilityFooterView(boolean visibilityFooterView) {
+        isVisibilityFooterView = visibilityFooterView;
     }
 }

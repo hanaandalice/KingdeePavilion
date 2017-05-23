@@ -68,7 +68,10 @@ public class LoginActivity extends TitleBarActivity {
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, "正常使用必需的权限", 24);
     }
-    @OnClick({R.id.tv_forget_password,R.id.tv_login,R.id.tv_register})
+    @OnClick({R.id.tv_forget_password
+            ,R.id.tv_login
+            ,R.id.tv_register
+    })
     void onClicks(View view){
         switch (view.getId()) {
             case R.id.tv_forget_password:

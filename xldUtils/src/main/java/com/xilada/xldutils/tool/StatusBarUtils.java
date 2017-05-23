@@ -2,8 +2,10 @@ package com.xilada.xldutils.tool;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,6 +13,7 @@ import android.view.WindowManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -79,7 +82,6 @@ public class StatusBarUtils {
         }
         return result;
     }
-
     /**
      * 已知系统类型时，设置状态栏黑色字体图标。
      * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
@@ -177,5 +179,66 @@ public class StatusBarUtils {
         }
         return result;
     }
+    public static boolean isMeizuFlyme(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return  isMeizuFlymeOS();
+        }else{
+            return  isFlyme();
+        }
+    }
+    /**
+     * 5.1之前系统判断
+     * 判断是否是魅族系统
+     * @return
+     */
+    public static boolean isFlyme() {
+        try {
+            // Invoke Build.hasSmartBar()
+            final Method method = Build.class.getMethod("hasSmartBar");
+            return method != null;
+        } catch (final Exception e) {
+            return false;
+        }
+    }
 
+    public static boolean isMeizuFlymeOS() {
+/* 获取魅族系统操作版本标识*/
+        String meizuFlymeOSFlag  =getSystemProperty("ro.build.display.id","");
+        if (TextUtils.isEmpty(meizuFlymeOSFlag)){
+            return false;
+        }else if (meizuFlymeOSFlag.contains("flyme") || meizuFlymeOSFlag.toLowerCase().contains("flyme")){
+            return  true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     *   获取系统属性
+     * <h3>Version</h3> 1.0
+     * <h3>CreateTime</h3> 2016/6/18,9:35
+     * <h3>UpdateTime</h3> 2016/6/18,9:35
+     * <h3>CreateAuthor</h3> vera
+     * <h3>UpdateAuthor</h3>
+     * <h3>UpdateInfo</h3> (此处输入修改内容,若无修改可不写.)
+     * @param key  ro.build.display.id
+     * @param defaultValue 默认值
+     * @return 系统操作版本标识
+     */
+    private static String getSystemProperty(String key, String defaultValue) {
+        try {
+            Class<?> clz = Class.forName("android.os.SystemProperties");
+            Method get = clz.getMethod("get", String.class, String.class);
+            return (String)get.invoke(clz, key, defaultValue);
+        } catch (ClassNotFoundException e) {
+            return null;
+        } catch (NoSuchMethodException e) {
+            return null;
+        } catch (IllegalAccessException e) {
+            return null;
+        } catch (IllegalArgumentException e) {
+            return null;
+        } catch (InvocationTargetException e) {
+            return null;
+        }
+    }
 }

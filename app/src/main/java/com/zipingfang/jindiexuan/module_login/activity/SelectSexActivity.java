@@ -44,7 +44,9 @@ public class SelectSexActivity extends DialogActivity implements View.OnClickLis
         btn_ok.setOnClickListener(this);
         btn_cancle.setOnClickListener(this);
 //         设置可见条目数量
-        constellation_wheelview.setVisibleItems(7);
+        constellation_wheelview.setVisibleItems(5);
+        constellation_wheelview.setShadowColor(0xefFFFFFF,
+                0x76FFFFFF, 0x00FFFFFF);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -54,7 +56,7 @@ public class SelectSexActivity extends DialogActivity implements View.OnClickLis
     }
     private void getData() {
         constellation_wheelview.setViewAdapter(new SexWheelAdapter(this, constellationList));
-        constellation_wheelview.setShadowFontSize(20,18,16);
+
     }
     @Override
     public void onChanged(MyWheelView wheel, int oldValue, int newValue) {

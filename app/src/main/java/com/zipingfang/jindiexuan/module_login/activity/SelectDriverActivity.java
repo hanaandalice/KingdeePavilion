@@ -29,7 +29,7 @@ public class SelectDriverActivity extends DialogActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_sex);
+        setContentView(R.layout.activity_select_driver);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         getWindow().setGravity(Gravity.BOTTOM);
         constellationList.add(new SexUtils(" 汽车司机"));

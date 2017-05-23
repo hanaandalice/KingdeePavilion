@@ -125,7 +125,6 @@ public class RequestManager {
 //            }
 //        }
 //        params.put("key",DES.decryptDES(builder.toString()));
-        Log.d(TAG, "secretRequest: ------->"+keyValue);
         HttpUtils.postAsyn(Api.BASE_URL+field, keyValue, new HttpUtils.ResultCallback<String>() {
             @Override
             public void onResult() {
@@ -303,7 +302,7 @@ public class RequestManager {
             callback.onResult();
         }
     }
-//    /**
+    //    /**
 //     * OSS上传文件到aliyun
 //     */
     public static void uploadFile(Context context, String fileName, File file, final HttpUtils.ResultCallback<ResultData> callback) {
@@ -340,7 +339,7 @@ public class RequestManager {
                 Log.d(TAG, "onProgress: ---------->"+currentSize+"--------->"+totalSize);
             }
         });
-     OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 ResultData resultData = new ResultData();
@@ -426,7 +425,7 @@ public class RequestManager {
                 callback.onResult();
             }
         });
-       return task;
+        return task;
     }
     public  interface UpLoadFileListener{
         void onProgress(long currentSize, long totalSize);
@@ -434,8 +433,8 @@ public class RequestManager {
         void onFailure(String requestStr, String Code);
     }
     //    /**
-   //     * OSS上传文件到aliyun
-   //     */
+    //     * OSS上传文件到aliyun
+    //     */
     public static void uploadFile(Context context, String fileName, File file, final UpLoadFileListener upLoadFileListener) {
         // 明文设置secret的方式建议只在测试时使用，更多鉴权模式请参考后面的`访问控制`章节
         if (file ==null&&file.exists()){
@@ -475,7 +474,6 @@ public class RequestManager {
             }
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                Log.d(TAG, "onFailure: ------>"+request.getObjectKey());
                 // 请求异常
                 if (clientExcepion != null) {
                     // 本地异常如网络异常等
@@ -550,10 +548,10 @@ public class RequestManager {
     /**
      phone:string
      手机号
-     password:string
+     passowrd:string
      密码
 
-      登录
+     登录
      *  @param callback 回调
      */
     public static void login(String phone,String password,final HttpUtils.ResultCallback<ResultData> callback) {
@@ -564,7 +562,7 @@ public class RequestManager {
         Map<String,Object> map=new HashMap<>();
         map.put("phone",phone);
         map.put("password",password);
-        secretRequest("Index/login/",map, callback);
+        secretRequest("/Index/login/",map, callback);
     }
 
     /**
@@ -593,4 +591,45 @@ public class RequestManager {
         secretRequest("/Index/forget",map, callback);
     }
 
+    /**
+     phone:string
+     手机号
+     code:string
+     验证码
+     passowrd:string
+     密码
+     repsd:string
+     重复密码
+
+     忘记密码
+     *  @param callback 回调
+     */
+    public static void getHome(final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/Index/getHome",map, callback);
+    }
+    /**
+     cate_id:string-1
+     分类id
+     page:string1
+     页数
+
+     商品分类
+     *  @param callback 回调
+     */
+    public static void getCateGoods(String cate_id,int page,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("cate_id",cate_id);
+        map.put("page",page+"");
+
+        secretRequest("/Index/getCateGoods",map, callback);
+    }
 }

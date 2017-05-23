@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/icon_login"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="48dp"
         />
     <EditText
         android:id="@+id/et_phone"
@@ -31,7 +31,7 @@
         android:background="@drawable/edittext_bottom_1dp"
         android:maxLength="11"
         android:paddingBottom="6dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="52dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -159,20 +159,21 @@
         android:layout_marginTop="4dp"
         android:paddingLeft="10dp"
         />
+
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="注册"
-        android:textColor="@color/textAccent"
-        android:textSize="14sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/radius_25dp_white_bg"
         android:gravity="center"
         android:padding="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+        android:text="注册"
+        android:textColor="@color/textAccent"
+        android:textSize="14sp" />
+
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
@@ -180,6 +181,8 @@
         android:text="登录"
         android:textSize="14sp"
         android:textColor="@color/white"
-        android:padding="26dp"
+        android:paddingTop="24dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         />
 </LinearLayout>

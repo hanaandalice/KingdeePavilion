@@ -1,6 +1,7 @@
 package com.zipingfang.jindiexuan;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
@@ -8,11 +9,13 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.utils.PermissionManager;
+import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.entity.TabEntity;
 import com.zipingfang.jindiexuan.module_grabone.GraboneFragment;
 import com.zipingfang.jindiexuan.module_home.HomeFragment;
 import com.zipingfang.jindiexuan.module_orderform.OrderFormFragment;
 import com.zipingfang.jindiexuan.module_user.UserFragment;
+import com.zipingfang.jindiexuan.view.gradation.StatusBarUtil;
 
 import org.json.JSONException;
 
@@ -43,6 +46,7 @@ public class MainActivity extends TitleBarActivity {
         return R.layout.activity_main;
     }
 
+    private static final String TAG = "MainActivity";
     @Override
     protected void initView() throws JSONException, IllegalAccessException {
 //        setTitle("首页");
@@ -72,10 +76,18 @@ public class MainActivity extends TitleBarActivity {
             @Override
             public void onTabSelect(int position) {
                 if (position==3) {
-                    StatusBarUtils.transparencyBar(MainActivity.this);
+                    if (StatusBarUtils.isMeizuFlyme()){
+                        StatusBarUtils.StatusBarDarkMode(MainActivity.this,2);
+                    }else{
+                        StatusBarUtils.transparencyBar(MainActivity.this);
+                    }
                     StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.colorAccent);
                 }else{
-                    StatusBarUtils.StatusBarLightMode(MainActivity.this);
+                    if (StatusBarUtils.isMeizuFlyme()){
+                        StatusBarUtils.StatusBarLightMode(MainActivity.this,2);
+                    }else{
+                        StatusBarUtils.StatusBarLightMode(MainActivity.this);
+                    }
                     StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.white);
 
                 }

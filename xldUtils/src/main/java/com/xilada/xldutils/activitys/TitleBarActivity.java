@@ -59,7 +59,7 @@ public abstract class TitleBarActivity extends BaseActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             view= bind(R.id.status_view);
-            view.setVisibility(View.GONE);
+            view.setVisibility(View.VISIBLE);
             //获取到状态栏的高度
             int statusHeight = getStatusBarHeight();
             //动态的设置隐藏布局的高度
