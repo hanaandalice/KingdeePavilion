@@ -95,7 +95,6 @@ public class ForgetPasswordActivity extends TitleBarActivity {
                     }
                 });
     }
-
     private void restPassword() {
         showDialog("申请中...");
         RequestManager.forget(et_phone.getText().toString(), et_code.getText().toString(), et_password.getText().toString(), et_confirm_password.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
@@ -141,7 +140,24 @@ public class ForgetPasswordActivity extends TitleBarActivity {
     }
 
     private void getCode() {
+        RequestManager.getMsg(et_phone.getText().toString(), new HttpUtils.ResultCallback<ResultData>() {
+            @Override
+            public void onResponse(ResultData response) {
+                Toast.create(ForgetPasswordActivity.this).show(""+response.toString());
+            }
 
+            @Override
+            public void onError(Call call, String e) {
+                super.onError(call, e);
+                Toast.create(ForgetPasswordActivity.this).show(""+e);
+            }
+
+            @Override
+            public void onResult() {
+                super.onResult();
+
+            }
+        });
     }
 
     @Override

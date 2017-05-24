@@ -1,7 +1,6 @@
 package com.zipingfang.jindiexuan;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
@@ -9,13 +8,12 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.utils.PermissionManager;
-import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.entity.TabEntity;
 import com.zipingfang.jindiexuan.module_grabone.GraboneFragment;
 import com.zipingfang.jindiexuan.module_home.HomeFragment;
 import com.zipingfang.jindiexuan.module_orderform.OrderFormFragment;
 import com.zipingfang.jindiexuan.module_user.UserFragment;
-import com.zipingfang.jindiexuan.view.gradation.StatusBarUtil;
+import com.zipingfang.jindiexuan.umeng.ShareBottomDialog;
 
 import org.json.JSONException;
 
@@ -67,7 +65,15 @@ public class MainActivity extends TitleBarActivity {
         mFragments.add(new HomeFragment());
         mFragments.add(new GraboneFragment());
         mFragments.add(new OrderFormFragment());
-        mFragments.add(new UserFragment());
+        UserFragment userFragment = new UserFragment();
+        userFragment.setShareClickListener(new UserFragment.ShareClickListener() {
+            @Override
+            public void onClick() {
+              final ShareBottomDialog shareBottomDialog =new ShareBottomDialog(MainActivity.this,MainActivity.this);
+                shareBottomDialog.show();
+            }
+        });
+        mFragments.add(userFragment);
         for (int i = 0; i < mFragments.size(); i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }

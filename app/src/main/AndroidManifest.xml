@@ -104,6 +104,9 @@
         <activity android:name=".module_user.activity.LeaderBoardActivity"/>
         <activity android:name=".module_user.activity.FullTimeDriverAuthenticateActivity"/>
         <activity android:name=".module_user.activity.FullTimeDriverAuthenticateScheduleActivity"/>
+        <activity android:name=".module_user.activity.FeedBackActivity"/>
+        <activity android:name=".module_user.activity.RevisePasswordActivity"/>
+        <activity android:name=".module_user.activity.AboutActivity"/>
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
                 android:theme="@style/Dialog"

@@ -82,12 +82,11 @@ android {
 //compile 'com.tencent.bugly:nativecrashreport:latest.release'
 ////其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     def androidDependencies = rootProject.ext.androidDependencies
-
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile androidDependencies.appcompat_v7
     compile androidDependencies.design
     compile viewDependencies.butterKnife
@@ -106,4 +105,6 @@ dependencies {
     compile project(':xldUtils')
     compile project(':FlycoDialog_Lib')
     compile files('libs/aliyun-oss-sdk-android-2.2.0.jar')
+    compile 'com.kyleduo.switchbutton:library:1.4.4'
+    compile project(':umeng_sdk')
 }

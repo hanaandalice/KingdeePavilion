@@ -1,10 +1,13 @@
 package com.zipingfang.jindiexuan.module_user.activity;
 
+import android.widget.TextView;
+
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.zipingfang.jindiexuan.R;
 
 import org.json.JSONException;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -13,6 +16,14 @@ import butterknife.Unbinder;
  */
 
 public class RecommendActivity extends TitleBarActivity {
+    @BindView(R.id.tv_wechat)
+    TextView tv_wechat;
+    @BindView(R.id.tv_wechat_friend)
+    TextView tv_wechat_friend;
+    @BindView(R.id.tv_qq)
+    TextView tv_qq;
+    @BindView(R.id.tv_qzone)
+    TextView tv_qzone;
 
     private Unbinder unbinder;
     @Override

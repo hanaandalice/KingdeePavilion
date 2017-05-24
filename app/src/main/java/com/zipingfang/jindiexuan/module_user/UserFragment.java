@@ -13,8 +13,12 @@ import com.flyco.dialog.widget.NormalDialog;
 import com.xilada.xldutils.fragment.BaseLazyFragment;
 import com.xilada.xldutils.tool.CacheActivity;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
+import com.xilada.xldutils.utils.Toast;
+import com.xilada.xldutils.utils.Version;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
+import com.zipingfang.jindiexuan.module_user.activity.AboutActivity;
+import com.zipingfang.jindiexuan.module_user.activity.FeedBackActivity;
 import com.zipingfang.jindiexuan.module_user.activity.LeaderBoardActivity;
 import com.zipingfang.jindiexuan.module_user.activity.OrdersSettingActivity;
 import com.zipingfang.jindiexuan.module_user.activity.MyWallectActivity;
@@ -22,6 +26,7 @@ import com.zipingfang.jindiexuan.module_user.activity.NoticeMesssageActivity;
 import com.zipingfang.jindiexuan.module_user.activity.PersonalInformationActivity;
 import com.zipingfang.jindiexuan.module_user.activity.PunchActivity;
 import com.zipingfang.jindiexuan.module_user.activity.RecommendActivity;
+import com.zipingfang.jindiexuan.module_user.activity.RevisePasswordActivity;
 import com.zipingfang.jindiexuan.utils.Const;
 import com.zipingfang.jindiexuan.view.gradation.GradationScrollView;
 
@@ -153,19 +158,21 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                 goActivity(OrdersSettingActivity.class);
                 break;
             case R.id.tv_feedback:
-
+                goActivity(FeedBackActivity.class);
                 break;
             case R.id.tv_modify_password:
-
+                goActivity(RevisePasswordActivity.class);
                 break;
             case R.id.tv_user_share:
-
+                if (null!=shareClickListener) {
+                    shareClickListener.onClick();
+                }
                 break;
             case R.id.tv_about:
-
+                goActivity(AboutActivity.class);
                 break;
             case R.id.tv_test_updata:
-
+                Toast.create(getActivity()).show("当前版本："+ Version.getVersion(getActivity())[0]);
                 break;
             case R.id.tv_out_login:
                 final NormalDialog dialog2 = new NormalDialog(getActivity());
@@ -204,5 +211,12 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                 goActivity(NoticeMesssageActivity.class);
                 break;
         }
+    }
+    public interface ShareClickListener{
+        void onClick();
+    }
+    private ShareClickListener shareClickListener;
+    public void setShareClickListener(ShareClickListener shareClickListener){
+        this.shareClickListener = shareClickListener;
     }
 }

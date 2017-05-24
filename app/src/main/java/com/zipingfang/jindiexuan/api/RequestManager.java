@@ -570,7 +570,7 @@ public class RequestManager {
      手机号
      code:string
      验证码
-     passowrd:string
+     password:string
      密码
      repsd:string
      重复密码
@@ -578,7 +578,7 @@ public class RequestManager {
      忘记密码
      *  @param callback 回调
      */
-    public static void forget(String phone,String code,String passowrd,String repsd,final HttpUtils.ResultCallback<ResultData> callback) {
+    public static void forget(String phone,String code,String password,String repsd,final HttpUtils.ResultCallback<ResultData> callback) {
         /*final String request = ParamsBuilder.create()
                 .append("action", action)
                 .append("targetId", targetId)
@@ -586,7 +586,7 @@ public class RequestManager {
         Map<String,Object> map=new HashMap<>();
         map.put("phone",phone);
         map.put("code",code);
-        map.put("passowrd",passowrd);
+        map.put("password",password);
         map.put("repsd",repsd);
         secretRequest("/Index/forget",map, callback);
     }

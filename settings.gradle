@@ -1,1 +1,1 @@
-include ':app', ':xldUtils', ':FlycoDialog_Lib'
+include ':app', ':xldUtils', ':FlycoDialog_Lib', ':umeng_sdk'
