@@ -25,7 +25,6 @@ public class LeaderBoardMoneyAdapter extends HeaderAndFooterRecyclerAdapter<Lead
     public LeaderBoardMoneyAdapter(List<LeaderBoardMoneyModel> mData, Context context,String type) {
         super(mData, R.layout.item_leader_board_money, context);
         this.type =type;
-        Log.d(TAG, "LeaderBoardMoneyAdapter: -------->"+type);
         this.context =context;
     }
 

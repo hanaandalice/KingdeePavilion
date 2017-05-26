@@ -11,24 +11,30 @@ import android.os.Message;
 //            LoopView
 
 final class MessageHandler extends Handler {
+    public static final int WHAT_INVALIDATE_LOOP_VIEW = 1000;
+    public static final int WHAT_SMOOTH_SCROLL = 2000;
+    public static final int WHAT_ITEM_SELECTED = 3000;
 
-    final LoopView a;
+    final LoopView loopview;
 
     MessageHandler(LoopView loopview) {
-        super();
-        a = loopview;
+        this.loopview = loopview;
     }
 
-    public final void handleMessage(Message paramMessage) {
-        if (paramMessage.what == 1000)
-            this.a.invalidate();
-        while (true) {
-            if (paramMessage.what == 2000)
-                LoopView.b(a);
-            else if (paramMessage.what == 3000)
-                this.a.c();
-            super.handleMessage(paramMessage);
-            return;
+    @Override
+    public final void handleMessage(Message msg) {
+        switch (msg.what) {
+            case WHAT_INVALIDATE_LOOP_VIEW:
+                loopview.invalidate();
+                break;
+
+            case WHAT_SMOOTH_SCROLL:
+                loopview.smoothScroll(LoopView.ACTION.FLING);
+                break;
+
+            case WHAT_ITEM_SELECTED:
+                loopview.onItemSelected();
+                break;
         }
     }
 

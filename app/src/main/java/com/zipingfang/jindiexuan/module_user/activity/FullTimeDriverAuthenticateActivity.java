@@ -1,7 +1,10 @@
 package com.zipingfang.jindiexuan.module_user.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,25 +16,38 @@ import com.flyco.dialog.widget.NormalDialog;
 import com.jakewharton.rxbinding.view.RxView;
 import com.xilada.xldutils.activitys.SelectPhotoDialog;
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.tool.CacheActivity;
+import com.xilada.xldutils.utils.Base64;
+import com.xilada.xldutils.utils.BitmapUtils;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.xilada.xldutils.utils.Toast;
+import com.xilada.xldutils.utils.luban.LubanGetFileProgressListener;
 import com.zipingfang.jindiexuan.MainActivity;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
 import com.zipingfang.jindiexuan.module_login.activity.AuthenticateActivity;
 import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
 import com.zipingfang.jindiexuan.module_login.activity.SelectDriverActivity;
+import com.zipingfang.jindiexuan.utils.ClassifyManager;
+import com.zipingfang.jindiexuan.utils.Const;
 import com.zipingfang.jindiexuan.view.XEditText;
 
 import org.json.JSONException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.Call;
 import rx.functions.Action1;
 
 /**
@@ -39,7 +55,6 @@ import rx.functions.Action1;
  */
 
 public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
-
 
     @BindView(R.id.et_name)
     XEditText et_name;
@@ -69,7 +84,10 @@ public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
     private String card_positive_img,
             card_negative_img,
             license_positive_img,
-            license_negative_img;
+            license_negative_img,
+            driverStr,
+            driverIndex;
+
 
     @Override
     protected int setContentLayout() {
@@ -119,6 +137,25 @@ public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
                             Toast.create(FullTimeDriverAuthenticateActivity.this).show("请选择驾驶证反面");
                             return;
                         }
+                        fullTimeAuthenticate();
+                    }
+                });
+    }
+
+    private static final String TAG = "FullTimeDriverAuthentic";
+//    private File[] files =new File[4];
+    private String[] imgs =new String[4];
+    private void fullTimeAuthenticate() {
+        showDialog();
+        RequestManager.beDriver(SharedPreferencesUtils.getString(Const.User.TOKEN)
+                , et_name.getText().toString()
+                , et_id_card_number.getText().toString()
+                , "2"
+                , driverIndex
+                , imgs
+                , new HttpUtils.ResultCallback<ResultData>() {
+                    @Override
+                    public void onResponse(ResultData response) {
                         final NormalDialog dialog2 = new NormalDialog(FullTimeDriverAuthenticateActivity.this);
                         dialog2 .style(NormalDialog.STYLE_TWO)
                                 .title("提交成功")
@@ -130,7 +167,7 @@ public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
                                 .contentTextColor(getResources().getColor(R.color.black))
                                 .btnNum(2)
                                 .btnTextSize(16)
-                                .btnTextColor(getResources().getColor(R.color.textColorHint),getResources().getColor(R.color.textAccent))
+                                .btnTextColor(getResources().getColor(R.color.hintColor_66),getResources().getColor(R.color.textAccent))
                                 .btnText("取消","去查看")
                                 .showAnim(null)
                                 .dismissAnim(null)
@@ -151,8 +188,21 @@ public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
                                     }
                                 });
                     }
+                    @Override
+                    public void onError(Call call, String e) {
+                        super.onError(call, e);
+                        Toast.create(FullTimeDriverAuthenticateActivity.this).show(""+e);
+                    }
+
+                    @Override
+                    public void onResult() {
+                        super.onResult();
+                        dismissDialog();
+                    }
                 });
+
     }
+
     @OnClick({R.id.iv_card_positive
             ,R.id.iv_card_negative
             ,R.id.iv_driver_license_positive
@@ -186,36 +236,69 @@ public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
                     card_positive_img =data.getStringExtra(SelectPhotoDialog.DATA);
                     if (!TextUtils.isEmpty(card_positive_img)) {
                         Glide.with(FullTimeDriverAuthenticateActivity.this).load(new File(card_positive_img)).into(iv_card_positive);
+                        compressFile(card_positive_img,0);
+
                     }
                     break;
                 case CARD_NEGATIVE_PICPHOTO:
                     card_negative_img =data.getStringExtra(SelectPhotoDialog.DATA);
                     if (!TextUtils.isEmpty(card_negative_img)) {
                         Glide.with(FullTimeDriverAuthenticateActivity.this).load(new File(card_negative_img)).into(iv_card_negative);
+                        compressFile(card_positive_img,1);
                     }
                     break;
                 case LICENSE_POSITIVE_PICPHOTO:
                     license_positive_img =data.getStringExtra(SelectPhotoDialog.DATA);
                     if (!TextUtils.isEmpty(license_positive_img)) {
                         Glide.with(FullTimeDriverAuthenticateActivity.this).load(new File(license_positive_img)).into(iv_driver_license_positive);
+                        compressFile(card_positive_img,2);
                     }
                     break;
                 case LICENSE_NEGATIVE_PICPHOTO:
                     license_negative_img =data.getStringExtra(SelectPhotoDialog.DATA);
                     if (!TextUtils.isEmpty(license_negative_img)) {
                         Glide.with(FullTimeDriverAuthenticateActivity.this).load(new File(license_negative_img)).into(iv_driver_license_negative);
+                        compressFile(card_positive_img,3);
                     }
                     break;
                 case SELECT_DELIVERY_CODE:
-                    String driverStr =  data.getStringExtra(SelectDriverActivity.DATA);
+                    driverStr=  data.getStringExtra(SelectDriverActivity.DATA);
                     if (!TextUtils.isEmpty(driverStr)) {
                         tv_driver.setText(driverStr);
+                        if (TextUtils.equals(  ClassifyManager.getDriverList().get(0),driverStr)) {
+                            driverIndex ="1";
+                        }else{
+                            driverIndex ="2";
+                        }
                     }
                     break;
             }
         }
     }
 
+    private void compressFile(String card_positive_img,final int i) {
+        BitmapUtils.compressWithRx(this, new File(card_positive_img), new LubanGetFileProgressListener() {
+            @Override
+            public void onStart() {
+
+            }
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+            @Override
+            public void onSuccess(File file) {
+                File compressfile =file;
+                Bitmap bmp = BitmapFactory.decodeFile(String.valueOf(compressfile.getAbsoluteFile()));
+                imgs[i] = Base64.encodeToString(Bitmap2Bytes(bmp), Base64.DEFAULT);
+            }
+        });
+    }
+    private static byte[] Bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -3,6 +3,7 @@ package com.zipingfang.jindiexuan.module_user.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xilada.xldutils.activitys.SelectPhotoDialog;
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.Api;
 import com.zipingfang.jindiexuan.module_login.activity.SelectDriverActivity;
 import com.zipingfang.jindiexuan.module_login.activity.SelectSexActivity;
 import com.zipingfang.jindiexuan.module_login.activity.SelectedDeliveryActivity;
+import com.zipingfang.jindiexuan.utils.Const;
 
 import org.json.JSONException;
 
@@ -51,6 +55,10 @@ public class PersonalInformationActivity extends TitleBarActivity {
     TextView tv_phone;
     @BindView(R.id.tv_area)
     TextView tv_area;
+    @BindView(R.id.tv_part_time)
+    TextView tv_part_time;
+    @BindView(R.id.tv_full_time)
+    TextView tv_full_time;
     @BindView(R.id.layout_full_time_driver)
     LinearLayout layout_full_time_driver;
 
@@ -62,6 +70,9 @@ public class PersonalInformationActivity extends TitleBarActivity {
     private static final int SEX_DELIVERY =19;
     private String imgPath;
     private String sex;
+
+    private static final String TAG = "PersonalInformationActi";
+
     @Override
     protected int setContentLayout() {
         return R.layout.activity_personal_information;
@@ -71,6 +82,36 @@ public class PersonalInformationActivity extends TitleBarActivity {
         setTitle("个人信息");
         showTitleBarLine(true);
         unbinder = ButterKnife.bind(this);
+        if (TextUtils.equals("1", SharedPreferencesUtils.getString(Const.User.USER_DRIVER))) {
+            tv_part_time.setText("");
+            tv_full_time.setText("");
+            layout_full_time_driver.setClickable(false);
+        }else if (TextUtils.equals("2", SharedPreferencesUtils.getString(Const.User.USER_DRIVER))){
+            if (TextUtils.equals("1", SharedPreferencesUtils.getString(Const.User.USER_DRIVER_STATUS))) {
+                tv_part_time.setText("已认证");
+                layout_full_time_driver.setClickable(true);
+            }else{
+                tv_part_time.setText("审核中...");
+                layout_full_time_driver.setClickable(false);
+            }
+        }else if (TextUtils.equals("3", SharedPreferencesUtils.getString(Const.User.USER_DRIVER))){
+            tv_part_time.setText("已认证");
+            tv_full_time.setClickable(true);
+            if (TextUtils.equals("1", SharedPreferencesUtils.getString(Const.User.USER_DRIVER_STATUS))) {
+                tv_full_time.setText("已认证");
+            }else{
+                tv_full_time.setText("审核中...");
+            }
+        }
+        Glide.with(this).load(SharedPreferencesUtils.getString(Const.User.USER_HEAD_IMG)).error(R.mipmap.icon_default_head).into(iv_head_img);
+        tv_nickname.setText(SharedPreferencesUtils.getString(Const.User.NAME));
+        if (TextUtils.equals("1", SharedPreferencesUtils.getString(Const.User.USER_SEX))) {
+            tv_sex.setText("男");
+        }else{
+            tv_sex.setText("女");
+        }
+        tv_phone.setText(SharedPreferencesUtils.getString(Const.User.USER_PHONE));
+        tv_area.setText(SharedPreferencesUtils.getString(Const.User.USER_AREA_ID));
 
     }
     @OnClick({R.id.layout_part_time_driver
@@ -93,7 +134,8 @@ public class PersonalInformationActivity extends TitleBarActivity {
                 goActivityForResult(SelectNickNameActivity.class,SELECT_NICKNAME);
                 break;
             case R.id.layout_select_sex:
-                goActivityForResult(SelectSexActivity.class,SELECT_SEX);
+//                goActivityForResult(SelectSexActivity.class,SELECT_SEX);
+                goActivity(FullTimeDriverAuthenticateActivity.class);
                 break;
             case R.id.layout_select_phone:
                 goActivityForResult(ModifyPhoneActivity.class,SELECT_PHONE);
@@ -105,7 +147,11 @@ public class PersonalInformationActivity extends TitleBarActivity {
                 goActivityForResult(SelectedDeliveryActivity.class,bundle,SEX_DELIVERY);
                 break;
             case R.id.layout_full_time_driver:
-                goActivity(FullTimeDriverAuthenticateActivity.class);
+                if (TextUtils.equals("3", SharedPreferencesUtils.getString(Const.User.USER_DRIVER))){
+                    goActivity(FullTimeDriverAuthenticateScheduleActivity.class);
+                }else{
+                    goActivity(FullTimeDriverAuthenticateActivity.class);
+                }
                 break;
         }
     }
@@ -145,7 +191,6 @@ public class PersonalInformationActivity extends TitleBarActivity {
                         tv_area.setText("深圳-"+delivery);
                     }
                     break;
-
             }
         }
     }

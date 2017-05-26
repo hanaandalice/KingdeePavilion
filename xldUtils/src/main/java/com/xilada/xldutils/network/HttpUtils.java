@@ -2,6 +2,7 @@ package com.xilada.xldutils.network;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -51,6 +52,7 @@ public class HttpUtils {
     private static final String DATA="showapi_res_body";
     private static final int defaultTimeOut  = 20;//秒
     private static boolean isSecret = false;
+    private static final String HEADER_NAME ="token";
     Gson mGson;
 
     private HttpUtils() {
@@ -73,6 +75,7 @@ public class HttpUtils {
         }
         return mInstance;
     }
+
     /**
      * 同步的Get请求
      *
@@ -129,8 +132,8 @@ public class HttpUtils {
      * @param params post的参数
      * @return response
      */
-    private Response _post(String url, Map<String,Object> params) throws IOException {
-        Request request = buildPostRequest(url, params);
+    private Response _post(String url,String header, Map<String,Object> params) throws IOException {
+        Request request = buildPostRequest(url, header,params);
         Response response = mOkHttpClient.newCall(request).execute();
         return response;
     }
@@ -142,8 +145,8 @@ public class HttpUtils {
      * @param params post的参数
      * @return 字符串
      */
-    private String _postAsString(String url, Map<String,Object> params) throws IOException {
-        Response response = _post(url, params);
+    private String _postAsString(String url,String header, Map<String,Object> params) throws IOException {
+        Response response = _post(url,header, params);
         return response.body().string();
     }
 
@@ -154,9 +157,8 @@ public class HttpUtils {
      * @param callback 回调
      * @param params 参数
      */
-    private void _postAsyn(String url, final ResultCallback callback, Map<String, Object> params) {
-        Log.d("tag","----表单---"+url+params);
-        Request request = buildPostRequest(url, params);
+    private void _postAsyn(String url,String header,final ResultCallback callback, Map<String, Object> params) {
+        Request request = buildPostRequest(url,header, params);
         deliveryResult(callback, request,defaultTimeOut);
     }
 
@@ -164,18 +166,19 @@ public class HttpUtils {
      * 异步基于post的文件上传
      *
      * @param url url
+     * @param header 设置头部
      * @param callback 回调
      * @param files 文件数组
      * @param fileKeys 文件名
      * @throws IOException
      */
-    private void _postAsyn(String url, Map<String,String> params, ResultCallback callback, File[] files, String[] fileKeys){
-        Request request = buildMultipartFormRequest(url, files, fileKeys, params);
+    private void _postAsyn(String url,String header, Map<String,String> params, ResultCallback callback, File[] files, String[] fileKeys){
+        Request request = buildMultipartFormRequest(url,header, files, fileKeys, params);
         deliveryResult(callback, request,defaultTimeOut);
     }
 
-    private void _postAsyn(String url, Map<String,String> params, ResultCallback callback, File[] files, String[] fileKeys,int timeOut){
-        Request request = buildMultipartFormRequest(url, files, fileKeys, params);
+    private void _postAsyn(String url,String header,Map<String,String> params, ResultCallback callback, File[] files, String[] fileKeys,int timeOut){
+        Request request = buildMultipartFormRequest(url, header,files,fileKeys, params);
         deliveryResult(callback, request,timeOut);
     }
     /**
@@ -187,17 +190,17 @@ public class HttpUtils {
      * @param fileKey 文件名
      * @throws IOException
      */
-    private void _postAsyn(String url, ResultCallback callback, File file, String fileKey) {
-        Request request = buildMultipartFormRequest(url, new File[]{file}, new String[]{fileKey}, null);
+    private void _postAsyn(String url,String header, ResultCallback callback, File file, String fileKey) {
+        Request request = buildMultipartFormRequest(url, header,new File[]{file}, new String[]{fileKey}, null);
         deliveryResult(callback, request,defaultTimeOut);
     }
 
-    private void _postAsyn(String url, ResultCallback callback, File file, String fileKey, Map<String,String> params){
-        Request request = buildMultipartFormRequest(url, new File[]{file}, new String[]{fileKey}, params);
+    private void _postAsyn(String url,String header, ResultCallback callback, File file, String fileKey, Map<String,String> params){
+        Request request = buildMultipartFormRequest(url,header, new File[]{file}, new String[]{fileKey}, params);
         deliveryResult(callback, request,defaultTimeOut);
     }
-    private void _postAsynFormData(String url, ResultCallback callback, File[] files, String[] fileKeys, Map<String,String> params){
-        Request request = buildMultipartFormRequest(url, files, fileKeys, params);
+    private void _postAsynFormData(String url, String header,ResultCallback callback, File[] files, String[] fileKeys, Map<String,String> params){
+        Request request = buildMultipartFormRequest(url,header, files, fileKeys, params);
         deliveryResult(callback, request,defaultTimeOut);
     }
 
@@ -265,17 +268,16 @@ public class HttpUtils {
         return getInstance()._getAsString(url);
     }
 
-    public static void postAsyn(String url, Map<String, Object> params ,final ResultCallback callback) {
-//        Log.d("tag","------访问的url--->"+url);
-        getInstance()._postAsyn(url, callback, params);
+    public static void postAsyn(String url,String header, Map<String, Object> params ,final ResultCallback callback) {
+        getInstance()._postAsyn(url,header, callback, params);
     }
 
-    public static void postAsyn(String url, Map<String ,String> params, ResultCallback callback, File[] files, String[] fileKeys,int timeOut){
-        getInstance()._postAsyn(url, params, callback, files, fileKeys,timeOut);
+    public static void postAsyn(String url, String header,Map<String ,String> params, ResultCallback callback, File[] files, String[] fileKeys,int timeOut){
+        getInstance()._postAsyn(url,header, params, callback, files, fileKeys,timeOut);
     }
 
-    public static void postAsyn(String url, Map<String,String> params, ResultCallback callback, File file, String fileKey) {
-        getInstance()._postAsyn(url, callback, file, fileKey, params);
+    public static void postAsyn(String url, String header,Map<String,String> params, ResultCallback callback, File file, String fileKey) {
+        getInstance()._postAsyn(url,header, callback, file, fileKey, params);
     }
 
     public static void downloadAsyn(String url, String destDir, ResultCallback callback) {
@@ -283,8 +285,11 @@ public class HttpUtils {
     }
 
     //****************************
-    private Request buildMultipartFormRequest(String url, File[] files,
-                                              String[] fileKeys, Map<String,String> params) {
+    private Request buildMultipartFormRequest(String url
+            ,String header
+            ,File[] files
+            ,String[] fileKeys
+            ,Map<String,String> params) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
 //        MultipartBuilder builder = new MultipartBuilder()
 //                .type(MultipartBuilder.FORM);
@@ -310,10 +315,19 @@ public class HttpUtils {
         }
 
         RequestBody requestBody = builder.build();
-        return new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
+        if (TextUtils.isEmpty(header)) {
+            return new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+        }else{
+            return new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .header(HEADER_NAME,header)
+                    .build();
+        }
+
     }
     private String guessMimeType(String path) {
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
@@ -342,6 +356,7 @@ public class HttpUtils {
 
             @Override
             public void onResponse(Call call,final Response response) {
+                Log.d(TAG, "onResponse: ------------>"+request.toString());
                 try {
                     if (callback.mType == String.class) {
                         final String string = response.body().string();
@@ -419,7 +434,9 @@ public class HttpUtils {
         });
     }
 
-    private Request buildPostRequest(String url, Map<String,Object> params) {
+    private Request buildPostRequest(String url
+            ,String header
+            ,Map<String,Object> params) {
         if (params == null) {
             params = new HashMap<>();
         }
@@ -430,10 +447,19 @@ public class HttpUtils {
             builder.add(entry.getKey(), entry.getValue().toString());
         }
         RequestBody requestBody = builder.build();
-        return new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
+        if (TextUtils.isEmpty(header)) {
+            return new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+        }else{
+            return new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .header(HEADER_NAME,header)
+                    .build();
+        }
+
     }
     public static abstract class ResultCallback<T> {
         Type mType;

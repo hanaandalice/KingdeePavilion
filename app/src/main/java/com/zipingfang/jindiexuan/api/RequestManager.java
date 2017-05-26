@@ -1,6 +1,7 @@
 package com.zipingfang.jindiexuan.api;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.xilada.xldutils.network.HttpUtils;
+import com.xilada.xldutils.utils.Base64;
 import com.xilada.xldutils.utils.Toast;
 import com.xilada.xldutils.utils.Utils;
 
@@ -24,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,6 +85,7 @@ public class RequestManager {
             _append(key, value);
             return this;
         }
+
         /*
         * 拿key值进行拼接
         * */
@@ -109,7 +113,7 @@ public class RequestManager {
      * @param callback 回调
      */
     private static final String TAG = "RequestManager";
-    private static void secretRequest(String field,Map<String,Object> keyValue, final HttpUtils.ResultCallback<ResultData> callback) {
+    private static void secretRequest(String field,String header,Map<String,Object> keyValue, final HttpUtils.ResultCallback<ResultData> callback) {
 
 //        //加密
 //        Map<String, String> params = new HashMap<>();
@@ -125,7 +129,7 @@ public class RequestManager {
 //            }
 //        }
 //        params.put("key",DES.decryptDES(builder.toString()));
-        HttpUtils.postAsyn(Api.BASE_URL+field, keyValue, new HttpUtils.ResultCallback<String>() {
+        HttpUtils.postAsyn(Api.BASE_URL+field, header,keyValue, new HttpUtils.ResultCallback<String>() {
             @Override
             public void onResult() {
                 super.onResult();
@@ -171,10 +175,11 @@ public class RequestManager {
     }
     /**
      * 加密请求
+     * @param header 设置头部
      * @param keyValue 请求值
      * @param callback 回调
      */
-    private static void postHttpSecret(Map<String,Object> keyValue, String url, final HttpUtils.ResultCallback<ResultData> callback) {
+    private static void postHttpSecret( String url,String header, Map<String,Object> keyValue,final HttpUtils.ResultCallback<ResultData> callback) {
 //        //加密
 //        Map<String, String> params = new HashMap<>();
 //        Set<String> keySet = keyValue.keySet();
@@ -189,7 +194,7 @@ public class RequestManager {
 //            }
 //        }
 //        params.put("key",DES.decryptDES(builder.toString()));
-        HttpUtils.postAsyn(url, keyValue, new HttpUtils.ResultCallback<String>() {
+        HttpUtils.postAsyn(url,header, keyValue, new HttpUtils.ResultCallback<String>() {
             @Override
             public void onResult() {
                 super.onResult();
@@ -238,10 +243,10 @@ public class RequestManager {
      * @param keyValue 请求值
      * @param callback 回调
      */
-    private static void secretFileRequest(Map<String,String> keyValue, File[] file, String[] fileKey, final HttpUtils.ResultCallback<ResultData> callback, int timeOut) {
+    private static void secretFileRequest(String field,String header, Map<String,String> keyValue, File[] file, String[] fileKey, final HttpUtils.ResultCallback<ResultData> callback, int timeOut) {
 //        Map<String, String> params = new HashMap<>();
 //        params.put("key", DES.encryptDES(keyValue));
-        HttpUtils.postAsyn(Api.BASE_URL, keyValue, new HttpUtils.ResultCallback<String>() {
+        HttpUtils.postAsyn(Api.BASE_URL+field, header,keyValue, new HttpUtils.ResultCallback<String>() {
             @Override
             public void onResult() {
                 super.onResult();
@@ -526,7 +531,7 @@ public class RequestManager {
         map.put("code",code);
         map.put("password",password);
         map.put("repassword",repassword);
-        secretRequest("/Index/register",map, callback);
+        secretRequest("/Index/register","",map, callback);
     }
 
     /**
@@ -543,7 +548,7 @@ public class RequestManager {
                 .build();*/
         Map<String,Object> map=new HashMap<>();
         map.put("phone",phone);
-        secretRequest("/Index/getMsg",map, callback);
+        secretRequest("/Index/getMsg","",map, callback);
     }
     /**
      phone:string
@@ -562,7 +567,7 @@ public class RequestManager {
         Map<String,Object> map=new HashMap<>();
         map.put("phone",phone);
         map.put("password",password);
-        secretRequest("/Index/login/",map, callback);
+        secretRequest("/Index/login/","",map, callback);
     }
 
     /**
@@ -588,7 +593,7 @@ public class RequestManager {
         map.put("code",code);
         map.put("password",password);
         map.put("repsd",repsd);
-        secretRequest("/Index/forget",map, callback);
+        secretRequest("/Index/forget","",map, callback);
     }
 
     /**
@@ -610,7 +615,7 @@ public class RequestManager {
                 .append("targetId", targetId)
                 .build();*/
         Map<String,Object> map=new HashMap<>();
-        secretRequest("/Index/getHome",map, callback);
+        secretRequest("/Index/getHome","",map, callback);
     }
     /**
      cate_id:string-1
@@ -630,6 +635,216 @@ public class RequestManager {
         map.put("cate_id",cate_id);
         map.put("page",page+"");
 
-        secretRequest("/Index/getCateGoods",map, callback);
+        secretRequest("/Index/getCateGoods","",map, callback);
     }
+
+    /**
+     token:	string
+     不是参数 放在header里面
+     phone:string
+     手机号
+     code:string
+     验证码
+     password:string
+     密码
+     repassword:string
+     重复密码
+
+     修改密码
+     *  @param callback 回调
+     */
+    public static void updatePassword(String token,String phone,String code,String password,String repassword,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("phone",phone);
+        map.put("code",code);
+        map.put("password",password);
+        map.put("repassword",repassword);
+        secretRequest("/User/updatePassword",token,map, callback);
+    }
+    /**
+     token:	string
+     不是参数 放在header里面
+     content:text
+     意见内容
+
+     意见反馈
+     *  @param callback 回调
+     */
+    public static void opinion(String token,String content,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("content",content);
+        secretRequest("/User/opinion",token,map, callback);
+    }
+
+    /**
+     token:	string
+     不是参数 放在header里面
+     receive:string
+     是否接单 1是 0否
+
+     接单设置
+     *  @param callback 回调
+     */
+    public static void receiveCfg(String token,String receive,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("receive",receive);
+        secretRequest("/User/receiveCfg",token,map, callback);
+    }
+    /**
+     token:	string
+
+     个人信息
+     *  @param callback 回调
+     */
+    public static void myHomePage(String token,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/User/myHomePage",token,map, callback);
+    }
+
+    /**
+     token:	string
+     不是参数 放在header里面
+     true_name:string
+     真实姓名
+     idcard:string
+     身份证号
+     driver:string
+     1:兼职，2专职
+     driver_type:string
+     1:汽车，2电动车
+     card_pic1:string
+     身份证正面 base_64格式
+     card_pic2:string
+     身份证反面 base_64格式
+     driver_pic1:	string
+     驾照正页 base_64格式
+     driver_pic2:	string
+     驾照副页 base_64格式
+     *
+     * 司机认证
+     */
+    public static void beDriver(String token,String true_name, String idcard,String driver,String driver_type, String[] imgs, final HttpUtils.ResultCallback<ResultData> callback) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("true_name", true_name);
+        map.put("idcard", idcard);
+        map.put("driver", driver);
+        map.put("driver_type", driver_type);
+        map.put("card_pic1",imgs[0]);
+        map.put("card_pic2", imgs[1]);
+        map.put("driver_pic1", imgs[2]);
+        map.put("driver_pic2", imgs[3]);
+        secretRequest("/User/beDriver",token,map, callback);
+    }
+
+
+    private static byte[] Bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    /**
+     token:	string
+
+     推荐
+     *  @param callback 回调
+     */
+    public static void regShare(String token,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/User/regShare",token,map, callback);
+    }
+
+    /**
+     token:	string
+
+     分享
+     *  @param callback 回调
+     */
+    public static void share(String token,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/User/share",token,map, callback);
+    }
+
+    /**
+     token:	string
+     获取打卡类型
+     *  @param callback 回调
+     */
+    public static void getDakaType(String token,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/User/getDakaType",token,map, callback);
+    }
+    /**
+     token:	string
+     不是参数 放在header里面
+     page:	string
+     页数
+
+     通知
+     *  @param callback 回调
+     */
+    public static void getNotification(String token,String page,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("page",page);
+        secretRequest("/User/getNotification",token,map, callback);
+    }
+
+    /**
+     type:int1
+     1:上班打卡，2：下班
+     addr:string
+     地址：省-市-区-地址
+     lng:string
+     经度-180~180，小数6位
+     lat:string
+     纬度-90~90，小数6位
+
+      打卡
+     *  @param callback 回调
+     */
+    public static void daka(String token,String type,String addr,String lng,String lat,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("type",type);
+        map.put("addr",addr);
+        map.put("lng",lng);
+        map.put("lat",lat);
+        secretRequest("/User/daka",token,map, callback);
+    }
+
 }

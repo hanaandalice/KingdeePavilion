@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+    <LinearLayout
+        style="@style/ll_v_layout_no_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="您的订单被取消"
+            android:textColor="#bf5656"
+            />
+        <TextView
+            style="@style/hint_text_samll"
+            android:text="取消时间：2016-09-12 12:00"
+            android:layout_marginTop="8dp"
+            />
+        <TextView
+            style="@style/hint_text"
+            android:text="由于买家取消了该订单，所以您的订单已经不存在了！"
+            android:layout_marginTop="16dp"
+            />
+    </LinearLayout>
+</LinearLayout>

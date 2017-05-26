@@ -35,17 +35,32 @@
         android:src="@mipmap/icon_default_head"
         android:layout_marginRight="12dp"
         />
-    <RatingBar
-        android:id="@+id/rb_score"
-        style="@style/myRatingBar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:isIndicator="true"
-        android:stepSize="0.5"
-        android:rating="5"
-        android:numStars="5"
-        android:layout_margin="5dp"
-        />
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_color"
+            android:text="张三"
+            android:layout_marginBottom="12dp"
+            />
+        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/rb_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srb_fillColor="@color/colorAccent"
+            app:srb_borderColor="@color/colorAccent"
+            app:srb_pressedFillColor="@color/colorAccent"
+            app:srb_pressedBorderColor="@color/colorAccent"
+            app:srb_numberOfStars="5"
+            app:srb_rating="5"
+            app:srb_isIndicator="true"
+            app:srb_starSize="18dp"
+            />
+    </LinearLayout>
+
 </LinearLayout>

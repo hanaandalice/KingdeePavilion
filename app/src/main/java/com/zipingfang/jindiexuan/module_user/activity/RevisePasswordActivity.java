@@ -12,10 +12,12 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.tool.IsMobilieNum;
+import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.api.RequestManager;
 import com.zipingfang.jindiexuan.api.ResultData;
+import com.zipingfang.jindiexuan.utils.Const;
 
 import org.json.JSONException;
 
@@ -46,6 +48,8 @@ public class RevisePasswordActivity extends TitleBarActivity {
     TextView tv_get_code;
     @BindView(R.id.tv_confirm)
     TextView tv_confirm;
+    @BindView(R.id.tv_prompt)
+    TextView tv_prompt;
 
     private Unbinder unbinder;
     private int num =0;
@@ -67,50 +71,79 @@ public class RevisePasswordActivity extends TitleBarActivity {
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
+                        handler.postDelayed(runnable,2000);
                         if (TextUtils.isEmpty(et_phone.getText().toString())) {
-                            Toast.create(RevisePasswordActivity.this).show("手机号为空");
+                            tv_prompt.setText("手机号为空");
                             return;
                         }
                         if (!IsMobilieNum.isMobileNumber(et_phone.getText().toString())) {
-                            Toast.create(RevisePasswordActivity.this).show("手机格式不正确");
+                            tv_prompt.setText("手机格式不正确");
                             return;
                         }
                         if (TextUtils.isEmpty(et_code.getText().toString())) {
-                            Toast.create(RevisePasswordActivity.this).show("验证码为空");
+                            tv_prompt.setText("验证码为空");
                             return;
                         }
                         if (TextUtils.isEmpty(et_password.getText().toString())) {
-                            Toast.create(RevisePasswordActivity.this).show("密码不能为空");
+                            tv_prompt.setText("密码不能为空");
                             return;
                         }
                         if (TextUtils.isEmpty(et_confirm_password.getText().toString())) {
-                            Toast.create(RevisePasswordActivity.this).show("确认密码不能为空");
+                            tv_prompt.setText("确认密码不能为空");
                             return;
                         }
                         if (!TextUtils.equals(et_password.getText().toString(),et_confirm_password.getText().toString())) {
-                            Toast.create(RevisePasswordActivity.this).show("两次密码输入不同");
+                            tv_prompt.setText("两次密码输入不同,请重新输入");
                             return;
                         }
                         restPassword();
                     }
                 });
-
     }
-
     private void restPassword() {
+        showDialog();
+        RequestManager.updatePassword(SharedPreferencesUtils.getString(Const.User.TOKEN)
+                , et_phone.getText().toString()
+                , et_code.getText().toString()
+                , et_password.getText().toString()
+                , et_confirm_password.getText().toString()
+                , new HttpUtils.ResultCallback<ResultData>() {
+                    @Override
+                    public void onResponse(ResultData response) {
+                        Toast.create(RevisePasswordActivity.this).show("修改成功,请重新登录");
+                        finish();
+                    }
+                    @Override
+                    public void onError(Call call, String e) {
+                        super.onError(call, e);
+                        if (null!=tv_prompt) {
+                            tv_prompt.setText(""+e);
+                        }
+                        if (null!=handler) {
+                            handler.postDelayed(runnable,2000);
+                        }
+                    }
 
+                    @Override
+                    public void onResult() {
+                        super.onResult();
+                        dismissDialog();
+                    }
+                });
     }
 
     @OnClick({R.id.tv_get_code})
     void onClicks(View view){
         switch (view.getId()) {
             case R.id.tv_get_code:
+                tv_get_code.setClickable(false);
+                handler.postDelayed(runnable,2000);
                 if (TextUtils.isEmpty(et_phone.getText().toString())) {
-                    Toast.create(RevisePasswordActivity.this).show("手机号为空");
+                    tv_prompt.setText("手机号为空");
                     return;
                 }
                 if (!IsMobilieNum.isMobileNumber(et_phone.getText().toString())) {
-                    Toast.create(RevisePasswordActivity.this).show("手机格式不正确");
+                    tv_prompt.setText("手机格式不正确");
                     return;
                 }
                 num =60;
@@ -132,7 +165,12 @@ public class RevisePasswordActivity extends TitleBarActivity {
             @Override
             public void onError(Call call, String e) {
                 super.onError(call, e);
-                Toast.create(RevisePasswordActivity.this).show(""+e);
+                if (null!=tv_prompt) {
+                    tv_prompt.setText(""+e);
+                }
+                if (null!=handler) {
+                    handler.postDelayed(runnable,2000);
+                }
             }
 
             @Override
@@ -188,9 +226,10 @@ public class RevisePasswordActivity extends TitleBarActivity {
     private Runnable runnable =new Runnable() {
         @Override
         public void run() {
-//            if (null!=tv_prompt) {
-//                tv_prompt.setText("");
-//            }
+            if (null!=tv_prompt) {
+                tv_prompt.setText("");
+                tv_get_code.setClickable(true);
+            }
         }
     };
     private Handler handler =new Handler(new Handler.Callback() {

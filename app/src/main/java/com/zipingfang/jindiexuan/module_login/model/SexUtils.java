@@ -1,5 +1,7 @@
 package com.zipingfang.jindiexuan.module_login.model;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -16,5 +18,11 @@ public class SexUtils implements Serializable {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        if( TextUtils.isEmpty(getData()))return"";
+        return getData();
     }
 }

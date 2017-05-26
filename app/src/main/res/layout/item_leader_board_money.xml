@@ -33,7 +33,7 @@
         app:roundWidth="40dp"
         app:roundHeight="40dp"
         android:src="@mipmap/icon_default_head"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="8dp"
         />
     <LinearLayout
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
             android:id="@+id/tv_ps"
            style="@style/hint_text_samll"
             android:text="接单总数量：200单"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             />
     </LinearLayout>
 </LinearLayout>

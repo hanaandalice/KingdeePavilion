@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_Color">
+
     <LinearLayout
         android:id="@+id/layout_selected_head_img"
-        style="@style/ll_h_layout_no_margin"
-        >
+        style="@style/ll_h_layout_no_margin">
+
         <com.xilada.xldutils.view.RoundAngleImageView
             android:id="@+id/iv_head_img"
             android:layout_width="60dp"
@@ -33,8 +34,7 @@
     <LinearLayout
         android:id="@+id/layout_select_nickname"
         style="@style/ll_h_layout_no_margin"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
         <TextView
             style="@style/hint_text"
             android:text="昵称"
@@ -85,14 +85,12 @@
         style="@style/view_line_h"/>
     <LinearLayout
         android:id="@+id/layout_select_phone"
-        style="@style/ll_h_layout_no_margin"
-        >
+        style="@style/ll_h_layout_no_margin">
         <TextView
             style="@style/hint_text"
             android:text="手机号"
             android:layout_marginRight="20dp"
             />
-
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="0dp"
@@ -147,6 +145,7 @@
             android:layout_marginRight="20dp"
             />
         <TextView
+            android:id="@+id/tv_part_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -155,7 +154,6 @@
             android:textSize="14sp"
             android:textColorHint="@color/hintColor_99"
             android:hint="去认证"
-            android:text="已认证"
             android:textColor="@color/textColor"
             android:drawablePadding="6dp"
             />
@@ -172,6 +170,7 @@
             android:layout_marginRight="20dp"
             />
         <TextView
+            android:id="@+id/tv_full_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

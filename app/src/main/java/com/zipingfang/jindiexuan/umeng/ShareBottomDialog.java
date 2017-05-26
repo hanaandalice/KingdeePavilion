@@ -2,20 +2,37 @@ package com.zipingfang.jindiexuan.umeng;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.flyco.animation.FlipEnter.FlipVerticalEnter;
 import com.flyco.animation.FlipExit.FlipVerticalExit;
 import com.flyco.dialog.widget.base.BottomBaseDialog;
+import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.xilada.xldutils.network.HttpUtils;
+import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.Api;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
+import com.zipingfang.jindiexuan.utils.Const;
+
+import org.json.JSONObject;
+
+import okhttp3.Call;
 
 
 public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
-  private TextView tv_wx;
+    private TextView tv_wx;
     private TextView tv_wx_f;
     private TextView tv_qq;
     private TextView tv_qq_z;
@@ -24,6 +41,9 @@ public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
     private Context context;
     private RelativeLayout layout_dismiss;
     private Activity activity;
+    private String title,
+            content,
+            url;
     public ShareBottomDialog(Context context, View animateView) {
         super(context, animateView);
     }
@@ -45,8 +65,32 @@ public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
         tv_qq = (TextView) inflate.findViewById(R.id.tv_qq);
         tv_cancle = (TextView) inflate.findViewById(R.id.tv_cancle);
         layout_dismiss = (RelativeLayout) inflate.findViewById(R.id.layout_dismiss);
+        getShareContents();
         return inflate;
     }
+
+    private void getShareContents() {
+        RequestManager.share(SharedPreferencesUtils.getString(Const.User.TOKEN), new HttpUtils.ResultCallback<ResultData>() {
+            @Override
+            public void onResponse(ResultData response) {
+                JSONObject object  =response.getJsonObject();
+                title = object.optString("title");
+                content = object.optString("content");
+                url = object.optString("url");
+            }
+
+            @Override
+            public void onError(Call call, String e) {
+                super.onError(call, e);
+            }
+
+            @Override
+            public void onResult() {
+                super.onResult();
+            }
+        });
+    }
+
     @Override
     public void setUiBeforShow() {
 //        tv_wx.setOnClickListener(new View.OnClickListener() {
@@ -63,20 +107,18 @@ public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
 //                dismiss();
 //            }
 //        });
-//        tv_qq.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                share(SHARE_MEDIA.QQ);
-//                dismiss();
-//            }
-//        });
-//        tv_qq_z.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                share(SHARE_MEDIA.QZONE);
-//                dismiss();
-//            }
-//        });
+        tv_qq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share(SHARE_MEDIA.QQ);
+            }
+        });
+        tv_qq_z.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share(SHARE_MEDIA.QZONE);
+            }
+        });
 //        tv_wb.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -96,23 +138,23 @@ public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
                 dismiss();
             }
         });
+
     }
     private void share(final SHARE_MEDIA i) {
-//        Glide.with(context).load(R.mipmap.icon_share).asBitmap().override(200,200).into(new SimpleTarget<Bitmap>() {
-//            @Override
-//            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                UMWeb web = new UMWeb(Api.SHARE);
-//                web.setTitle("标题");//标题
-//                web.setThumb(new UMImage(getContext(),resource));  //缩略图
-//                web.setDescription("描述");//描述
-//                new ShareAction(activity)
-//                        .setPlatform(i)
-//                        .withMedia(web)
-//                        .setCallback(umShareListener)
-//                        .share();
-//            }
-//        });
-//        shareAddLetter();//分享第一次赚金币接口
+        Glide.with(context).load(R.mipmap.ic_launcher).asBitmap().override(200,200).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                UMWeb web = new UMWeb(url);
+                web.setTitle(title);//标题
+                web.setThumb(new UMImage(getContext(),resource));  //缩略图
+                web.setDescription(content);//描述
+                new ShareAction(activity)
+                        .setPlatform(i)
+                        .withMedia(web)
+                        .setCallback(umShareListener)
+                        .share();
+            }
+        });
     }
 
     private void shareAddLetter() {

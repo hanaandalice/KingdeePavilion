@@ -1,13 +1,19 @@
 package com.zipingfang.jindiexuan;
 
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.umeng.socialize.UMShareAPI;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.utils.PermissionManager;
+import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.zipingfang.jindiexuan.entity.TabEntity;
 import com.zipingfang.jindiexuan.module_grabone.GraboneFragment;
 import com.zipingfang.jindiexuan.module_home.HomeFragment;
@@ -58,6 +64,7 @@ public class MainActivity extends TitleBarActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, "正常使用必需的权限", 24);
+
         mTitles[0]="首页";
         mTitles[1]="抢单";
         mTitles[2]="订单";
@@ -85,7 +92,9 @@ public class MainActivity extends TitleBarActivity {
                     if (StatusBarUtils.isMeizuFlyme()){
                         StatusBarUtils.StatusBarDarkMode(MainActivity.this,2);
                     }else{
-                        StatusBarUtils.transparencyBar(MainActivity.this);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            StatusBarUtils.transparencyBar(MainActivity.this);
+                        }
                     }
                     StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.colorAccent);
                 }else{
@@ -95,7 +104,6 @@ public class MainActivity extends TitleBarActivity {
                         StatusBarUtils.StatusBarLightMode(MainActivity.this);
                     }
                     StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.white);
-
                 }
             }
             @Override
@@ -104,6 +112,13 @@ public class MainActivity extends TitleBarActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -111,4 +126,13 @@ public class MainActivity extends TitleBarActivity {
             unbinder.unbind();
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (permissions.length <= 0) {
+            return;
+        }
+        SharedPreferencesUtils.save(permissions[0], false);
+    }
+
 }

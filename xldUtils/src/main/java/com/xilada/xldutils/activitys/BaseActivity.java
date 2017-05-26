@@ -222,7 +222,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 显示加载提示窗
      */
     protected void showDialog(){
-        showDialog("加载中...");
+        showDialog("请求中...");
     }
 
     /**

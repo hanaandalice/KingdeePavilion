@@ -23,6 +23,7 @@ public class LeaderBoardMoneyFragment extends VerticalLinearRecyclerViewFragment
     private LeaderBoardMoneyAdapter leaderBoardMoneyAdapter;
     private List<LeaderBoardMoneyModel> leaderBoardMoneyModelList =new ArrayList<>();
     private static final String TAG = "LeaderBoardMoneyFragmen";
+
     @Override
     protected void onFirstVisibleToUser() {
 

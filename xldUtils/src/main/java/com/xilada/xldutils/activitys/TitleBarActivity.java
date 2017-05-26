@@ -110,9 +110,11 @@ public abstract class TitleBarActivity extends BaseActivity {
     protected void toggleTip(boolean show){
         mHolder.bind(R.id.tv_tip).setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
     protected void hideTitle(boolean hide){
         navigationBar.setVisibility(!hide ? View.VISIBLE : View.GONE);
     }
+
     protected int getNavigationBar(){
         return this.height;
     }
@@ -123,6 +125,7 @@ public abstract class TitleBarActivity extends BaseActivity {
     public void setTitle(CharSequence title){
         navigationBar.setTitle(title);
     }
+
     /**
      * 设置标题栏背景颜色
      * @param color
@@ -150,6 +153,11 @@ public abstract class TitleBarActivity extends BaseActivity {
     protected void showRightButton(){
         navigationBar.showRightButton();
     }
+
+    protected void normalTypeFace(){
+        navigationBar.setNormalTypeFace();
+    }
+
     /**
      * 是否显示标题栏下一根线
      * @param show

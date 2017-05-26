@@ -3,6 +3,7 @@ package com.xilada.xldutils.view;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -78,6 +79,11 @@ public class NavigationBar extends LinearLayout {
 		}
 	}
 
+	public void setNormalTypeFace(){
+		if (null!=navTitleTextView) {
+			navTitleTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+		}
+	}
 	/**
 	 * 设置左边的按钮
 	 * @param title

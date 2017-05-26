@@ -133,6 +133,18 @@ public class LoginActivity extends TitleBarActivity {
 
 
                 SharedPreferencesUtils.save(Const.User.IS_LOGIN,true);
+                SharedPreferencesUtils.save(Const.User.TOKEN,loginUserModel.getToken());
+                SharedPreferencesUtils.save(Const.User.USER_PHONE,loginUserModel.getPhone());
+                SharedPreferencesUtils.save(Const.User.NAME,loginUserModel.getName());
+                SharedPreferencesUtils.save(Const.User.USER_HEAD_IMG,loginUserModel.getHead_pic());
+                SharedPreferencesUtils.save(Const.User.USER_RECEIVE,loginUserModel.getReceive());
+                SharedPreferencesUtils.save(Const.User.USER_DRIVER,loginUserModel.getDriver());
+                SharedPreferencesUtils.save(Const.User.USER_DRIVER_TYPE,loginUserModel.getDriver_type());
+                SharedPreferencesUtils.save(Const.User.USER_DRIVER_STATUS,loginUserModel.getDriver_status());
+                SharedPreferencesUtils.save(Const.User.USER_SEX,loginUserModel.getSex());
+                SharedPreferencesUtils.save(Const.User.USER_AREA_ID,loginUserModel.getArea_id());
+
+
                 Toast.create(LoginActivity.this).show("登录成功");
                 goActivity(MainActivity.class);
                 finish();

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
     <RelativeLayout
@@ -40,9 +41,16 @@
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
-    <com.zipingfang.jindiexuan.view.wheelview.MyWheelView
+
+    <com.xilada.xldutils.view.wheelview.LoopView
         android:id="@+id/constellation_wheelview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="160dp"
+        app:awv_textsize="18"
         />
+    <!--<com.zipingfang.jindiexuan.view.wheelview.MyWheelView-->
+        <!--android:id="@+id/constellation_wheelview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
 </LinearLayout>

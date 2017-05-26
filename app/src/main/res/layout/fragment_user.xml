@@ -36,6 +36,7 @@
                     android:src="@mipmap/icon_default_head" />
 
                 <TextView
+                    android:id="@+id/tv_driver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="兼职汽车司机"
@@ -48,7 +49,7 @@
                     android:layout_toStartOf="@+id/iv_head_img" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_head_img"
@@ -59,13 +60,14 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_driver_statues"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView"
-                    android:layout_alignBottom="@+id/textView"
+                    android:layout_alignBaseline="@+id/tv_name"
+                    android:layout_alignBottom="@+id/tv_name"
                     android:layout_marginLeft="10dp"
-                    android:layout_toEndOf="@+id/textView"
-                    android:layout_toRightOf="@+id/textView"
+                    android:layout_toEndOf="@+id/tv_name"
+                    android:layout_toRightOf="@+id/tv_name"
                     android:background="@drawable/radius_25dp_transparent_bg_line_white_1dp"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
@@ -78,7 +80,7 @@
                     android:id="@+id/tv_punch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView"
+                    android:layout_below="@+id/tv_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/radius_25dp_transparent_bg_line_white_1dp"

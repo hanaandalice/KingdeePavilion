@@ -456,7 +456,7 @@ public class Base64 {
      */
     public static String encodeToString(byte[] input, int flags) {
         try {
-            return new String(encode(input, flags), "US-ASCII");
+            return new String(encode(input, flags), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // US-ASCII is guaranteed to be available.
             throw new AssertionError(e);

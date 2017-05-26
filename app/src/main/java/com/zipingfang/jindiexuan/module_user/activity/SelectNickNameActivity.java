@@ -34,6 +34,7 @@ public class SelectNickNameActivity extends TitleBarActivity {
     @Override
     protected void initView() throws JSONException, IllegalAccessException {
         setTitle("修改昵称");
+        normalTypeFace();
         setRightButton("保存", null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

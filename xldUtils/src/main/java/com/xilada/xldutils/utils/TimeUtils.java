@@ -92,7 +92,16 @@ public class TimeUtils {
 		return f.format(new Date(timestamp));
 
 	}
+	/**
+	 * 时间戳转换日期格式
+	 * @param timestamp 单位毫秒
+	 * @return
+	 */
+	public static String  getTimeNotSecond(long timestamp) {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.CHINA);
+		return f.format(new Date(timestamp));
 
+	}
 	/**
 	 * 时间戳转换日期格式
 	 * @param timestamp 单位毫秒

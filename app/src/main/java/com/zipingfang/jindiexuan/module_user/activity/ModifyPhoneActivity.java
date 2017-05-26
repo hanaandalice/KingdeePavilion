@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.tool.IsMobilieNum;
 import com.zipingfang.jindiexuan.R;
-import com.zipingfang.jindiexuan.module_login.activity.RegisterActivity;
 import com.zipingfang.jindiexuan.view.XEditText;
 
 import org.json.JSONException;
@@ -50,6 +49,7 @@ public class ModifyPhoneActivity extends TitleBarActivity {
     @Override
     protected void initView() throws JSONException, IllegalAccessException {
         setTitle("修改手机号");
+        normalTypeFace();
         setRightButton("确定", null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

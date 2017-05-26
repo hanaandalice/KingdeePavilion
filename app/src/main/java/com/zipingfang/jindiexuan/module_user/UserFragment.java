@@ -2,20 +2,26 @@ package com.zipingfang.jindiexuan.module_user;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.xilada.xldutils.fragment.BaseLazyFragment;
+import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.tool.CacheActivity;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.xilada.xldutils.utils.Toast;
 import com.xilada.xldutils.utils.Version;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
 import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
 import com.zipingfang.jindiexuan.module_user.activity.AboutActivity;
 import com.zipingfang.jindiexuan.module_user.activity.FeedBackActivity;
@@ -27,8 +33,13 @@ import com.zipingfang.jindiexuan.module_user.activity.PersonalInformationActivit
 import com.zipingfang.jindiexuan.module_user.activity.PunchActivity;
 import com.zipingfang.jindiexuan.module_user.activity.RecommendActivity;
 import com.zipingfang.jindiexuan.module_user.activity.RevisePasswordActivity;
+import com.zipingfang.jindiexuan.module_user.model.UserModel;
 import com.zipingfang.jindiexuan.utils.Const;
 import com.zipingfang.jindiexuan.view.gradation.GradationScrollView;
+
+import org.json.JSONObject;
+
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/5/18.
@@ -50,7 +61,10 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
             tv_user_share,
             tv_about,
             tv_test_updata,
-            tv_out_login;
+            tv_out_login,
+            tv_name,
+            tv_driver,
+            tv_driver_statues;
 
 
     private int titleHeight;
@@ -84,6 +98,9 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
         tv_test_updata =findViewById(R.id.tv_test_updata);
         tv_out_login =findViewById(R.id.tv_out_login);
         iv_message =findViewById(R.id.iv_message);
+        tv_name =findViewById(R.id.tv_name);
+        tv_driver =findViewById(R.id.tv_driver);
+        tv_driver_statues =findViewById(R.id.tv_driver_statues);
 
         ViewTreeObserver vto = layout_banner.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -124,16 +141,76 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
         tv_test_updata.setOnClickListener(this);
         tv_out_login.setOnClickListener(this);
         iv_message.setOnClickListener(this);
+
+        retrieveData();
+    }
+
+    private static final String TAG = "UserFragment";
+    private void retrieveData() {
+        RequestManager.myHomePage(SharedPreferencesUtils.getString(Const.User.TOKEN)
+                , new HttpUtils.ResultCallback<ResultData>() {
+                    @Override
+                    public void onResponse(ResultData response) {
+                        Log.d(TAG, "onResponse: ----------->"+response.toString());
+                        JSONObject object =response.getJsonObject();
+                        UserModel userModel =new UserModel();
+                        userModel.setHead_pic(object.optString("head_pic"));
+                        userModel.setUsername(object.optString("username"));
+                        userModel.setDriver(object.optString("driver"));
+                        userModel.setDriver_type(object.optString("driver_type"));
+                        userModel.setDriver_status(object.optString("driver_status"));
+                        userModel.setNoti_num(object.optString("noti_num"));
+                        refreshData(userModel);
+                    }
+                    @Override
+                    public void onResult() {
+                        super.onResult();
+                    }
+
+                    @Override
+                    public void onError(Call call, String e) {
+                        super.onError(call, e);
+                        if (null!=getActivity()) {
+                            Toast.create(getActivity()).show(""+e);
+                        }
+                    }
+                });
+    }
+
+    private void refreshData(UserModel userModel) {
+        if (null!=getActivity()) {
+            SharedPreferencesUtils.save(Const.User.USER_HEAD_IMG,userModel.getHead_pic());
+            Glide.with(getActivity()).load(userModel.getHead_pic()).error(R.mipmap.icon_default_head).into(iv_head_img);
+            tv_name.setText(userModel.getUsername());
+            if (TextUtils.equals("1",userModel.getDriver())) {
+                tv_driver.setText("未认证");
+            }else if (TextUtils.equals("2",userModel.getDriver())){
+                tv_driver.setText("兼职汽车司机");
+            }else if (TextUtils.equals("3",userModel.getDriver())){
+                tv_driver.setText("专职汽车司机");
+            }
+            if (TextUtils.equals("1",userModel.getDriver_status())) {
+                tv_driver_statues.setText("已审核");
+            }else  if (TextUtils.equals("2",userModel.getDriver_status())) {
+                tv_driver_statues.setText("审核中");
+            }else if (TextUtils.equals("3",userModel.getDriver_status())) {
+                tv_driver_statues.setText("未通过");
+            }
+        }
+        SharedPreferencesUtils.save(Const.User.NAME,userModel.getUsername());
+        SharedPreferencesUtils.save(Const.User.USER_DRIVER,userModel.getDriver());
+        SharedPreferencesUtils.save(Const.User.USER_DRIVER_TYPE,userModel.getDriver_type());
+        SharedPreferencesUtils.save(Const.User.USER_DRIVER_STATUS,userModel.getDriver_status());
     }
 
     @Override
     protected void onVisibleToUser() {
-
+        Log.d(TAG, "onVisibleToUser: ");
     }
 
     @Override
     protected void onInvisibleToUser() {
-
+        Log.d(TAG, "onInvisibleToUser: ");
     }
 
     @Override
@@ -184,9 +261,9 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                         .titleTextColor(getResources().getColor(R.color.black))
                         .titleTextSize(18)
                         .btnNum(2)
-                        .btnTextSize(16)
-                        .btnTextColor(getResources().getColor(R.color.textColorHint),getResources().getColor(R.color.textAccent))
-                        .btnText("取消","确认")
+                        .btnTextSize(18)
+                        .btnTextColor(getResources().getColor(R.color.hintColor_66),getResources().getColor(R.color.textAccent))
+                        .btnText("取消","确定")
                         .showAnim(null)
                         .dismissAnim(null)
                         .show();

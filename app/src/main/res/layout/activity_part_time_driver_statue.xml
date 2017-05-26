@@ -21,9 +21,10 @@
                 <TextView
                     style="@style/hint_text"
                     android:text="审核状态："
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="6dp"
                     />
                 <TextView
+                    android:id="@+id/tv_check_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -82,7 +83,7 @@
             <TextView
                 style="@style/hint_text"
                 android:padding="10dp"
-                android:text="上传身份证正反面（必填）" />
+                android:text="身份证正反面" />
             <LinearLayout
                 style="@style/padding_10_10_16_16"
                 android:layout_width="match_parent"
@@ -90,13 +91,6 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1.1"
-                    android:text="温馨提示：请上传原始比例的身份证正反面，请勿裁剪涂改，保证身份信息清晰显示，否则无法通过审核！"
-                    android:textColor="#BF5656"
-                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -161,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="上传驾驶证首副页照片（必填）" />
+                android:text="驾驶证首副页照片" />
             <LinearLayout
                 style="@style/padding_10_10_16_16"
                 android:layout_width="match_parent"

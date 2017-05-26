@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zipingfang.jindiexuan">
 
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -65,6 +66,16 @@
             </intent-filter>
         </activity>
 
+        <!--百度地图-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="r1FR1Y0tWUP2OOPKhgLpw1XF7skCGAy9" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
         <!--7.0拍照-->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -107,10 +118,38 @@
         <activity android:name=".module_user.activity.FeedBackActivity"/>
         <activity android:name=".module_user.activity.RevisePasswordActivity"/>
         <activity android:name=".module_user.activity.AboutActivity"/>
+        <activity android:name=".module_user.activity.PunchSuccessActivity"/>
+        <activity android:name=".module_user.activity.PunchErrorActivity"/>
+
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
-                android:theme="@style/Dialog"
+            android:theme="@style/Dialog"
             />
+
+        <!-- 配置友盟-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58e60e18bbea836d99001182" ><!--替换为自己的友盟key-->
+        </meta-data>
+        <!--QQ-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1106008918" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
 
     </application>
 
