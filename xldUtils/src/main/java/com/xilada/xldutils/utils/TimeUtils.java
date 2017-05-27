@@ -683,8 +683,8 @@ public class TimeUtils {
 		}
 		return "";
 	}
-	public static String getTime(Date date) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	public static String getBaseTime(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy—MM—dd");
 		return format.format(date);
 	}
 	public static String getTimeHS(Date date) {

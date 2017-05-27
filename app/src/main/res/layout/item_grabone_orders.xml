@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:textColor="@color/hintColor_66"
-            android:text="订单生成时间：2016-09-12  12:00"
+            android:text="订单生成时间：2016-09-12 12:00"
             />
             <TextView
                style="@style/hint_text_samll"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="@color/textAccent"
             />
     </LinearLayout>
@@ -48,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        >
+        android:layout_marginTop="8dp">
+
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"

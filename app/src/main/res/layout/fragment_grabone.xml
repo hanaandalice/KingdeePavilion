@@ -120,7 +120,7 @@
                         android:paddingLeft="18dp"
                         android:paddingRight="18dp"
                         android:paddingTop="6dp"
-                        android:text="2017-09-09"
+                        android:text="2017—09—09"
                         android:textColor="@color/text_color"
                         android:textSize="14sp" />
 
@@ -142,7 +142,7 @@
                         android:paddingLeft="18dp"
                         android:paddingRight="18dp"
                         android:paddingTop="6dp"
-                        android:text="2017-09-09"
+                        android:text="2017—09—09"
                         android:textColor="@color/text_color"
                         android:textSize="14sp" />
                 </LinearLayout>

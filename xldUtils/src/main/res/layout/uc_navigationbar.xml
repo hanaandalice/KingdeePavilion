@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:minHeight="48dp">
+    android:minHeight="46dp">
     <Button
         android:id="@+id/leftButton"
         style="@style/BarButton"

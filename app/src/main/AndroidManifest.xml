@@ -120,7 +120,7 @@
         <activity android:name=".module_user.activity.AboutActivity"/>
         <activity android:name=".module_user.activity.PunchSuccessActivity"/>
         <activity android:name=".module_user.activity.PunchErrorActivity"/>
-
+        <activity android:name=".module_grabone.activity.GraboneDetailsActivity"/>
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
             android:theme="@style/Dialog"

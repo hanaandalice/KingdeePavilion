@@ -94,15 +94,14 @@ public class GraboneFragment extends BaseLazyFragment implements View.OnClickLis
             public void onTimeSelect(Date date) {
                 if (TextUtils.equals("1",type)){
                     isStartTime =true;
-                    tv_start_time.setText(TimeUtils.getTime(date));
+                    tv_start_time.setText(TimeUtils.getBaseTime(date));
                 }else if (TextUtils.equals("2",type)){
                     if (TimeUtils.parseTimeMillisecond(tv_start_time.getText().toString())<date.getTime()){
                         isEndTime =true;
-                        tv_end_time.setText(TimeUtils.getTime(date));
+                        tv_end_time.setText(TimeUtils.getBaseTime(date));
                     }else{
                         Toast.create(getActivity()).show("结束时间需大于开始时间");
                     }
-
                 }
             if (isStartTime&&isEndTime){
                 tv_order_all.setBackgroundDrawable(getResources().getDrawable(R.drawable.radius_25dp_white_bg_line_1dp));
