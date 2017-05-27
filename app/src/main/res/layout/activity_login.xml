@@ -87,7 +87,7 @@
         android:background="@drawable/radius_25dp_white_bg"
         android:gravity="center"
         android:padding="16dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="28dp"
          android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         />
