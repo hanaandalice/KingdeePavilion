@@ -5,4 +5,5 @@ package com.zipingfang.jindiexuan.module_grabone.model;
  */
 
 public class GraboneOrdersModel {
+
 }

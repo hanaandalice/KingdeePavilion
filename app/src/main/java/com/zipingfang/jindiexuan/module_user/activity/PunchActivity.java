@@ -3,7 +3,6 @@ package com.zipingfang.jindiexuan.module_user.activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -18,15 +17,7 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
-import com.baidu.mapapi.search.route.BikingRouteResult;
-import com.baidu.mapapi.search.route.DrivingRouteResult;
-import com.baidu.mapapi.search.route.IndoorRouteResult;
-import com.baidu.mapapi.search.route.MassTransitRouteResult;
-import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
-import com.baidu.mapapi.search.route.TransitRouteResult;
-import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.jakewharton.rxbinding.view.RxView;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.network.HttpUtils;
@@ -46,7 +37,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import okhttp3.Call;
 import rx.functions.Action1;
@@ -97,9 +87,9 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
                     public void call(Void aVoid) {
                         if (!TextUtils.isEmpty(type)) {
                             if (TextUtils.equals("1",type)) {
-                                punch("2");
-                            }else if (TextUtils.equals("2",type)){
                                 punch("1");
+                            }else if (TextUtils.equals("2",type)){
+                                punch("2");
                             }else if (TextUtils.equals("3",type)){
 
                             }
@@ -107,10 +97,14 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
                     }
                 });
         tv_clock.setText("时间："+TimeUtils.getTimeNotSecond(System.currentTimeMillis()));
-        getDakaType();
+
     }
 
     private void punch(String type) {
+        if (TextUtils.isEmpty(address)){
+            Toast.create(this).show("未获取到当前位置");
+            return;
+        }
         showDialog("打卡中...");
         RequestManager.daka(SharedPreferencesUtils.getString(Const.User.TOKEN)
                 , type
@@ -136,10 +130,10 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
                     @Override
                     public void onResult() {
                         super.onResult();
+                        dismissDialog();
                     }
                 });
     }
-
     private void getDakaType() {
         showDialog();
         RequestManager.getDakaType(SharedPreferencesUtils.getString(Const.User.TOKEN), new HttpUtils.ResultCallback<ResultData>() {
@@ -148,13 +142,11 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
                 tv_punch.setText(response.getMessage());
                 type =response.getString();
             }
-
             @Override
             public void onResult() {
                 super.onResult();
                 dismissDialog();
             }
-
             @Override
             public void onError(Call call, String e) {
                 super.onError(call, e);
@@ -187,7 +179,7 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
                 animateMap(new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude()), 17f);
                 longitude =bdLocation.getLongitude()+"";
                 lagitude =bdLocation.getLatitude()+"";
-
+                address =bdLocation.getAddress().province+"-"+bdLocation.getCity()+"-"+bdLocation.getAddress().district+"-"+bdLocation.getAddress().street;
             }
         });
         helper.start();
@@ -225,6 +217,7 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mapView.onResume();
+        getDakaType();
     }
 
     @Override
@@ -267,4 +260,5 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
     public void onMapStatusChangeFinish(MapStatus mapStatus) {
 
     }
+
 }

@@ -11,9 +11,13 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.umeng.socialize.UMShareAPI;
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.tool.StatusBarUtils;
 import com.xilada.xldutils.utils.PermissionManager;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
+import com.xilada.xldutils.utils.Toast;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
 import com.zipingfang.jindiexuan.entity.TabEntity;
 import com.zipingfang.jindiexuan.module_grabone.GraboneFragment;
 import com.zipingfang.jindiexuan.module_home.HomeFragment;
@@ -28,6 +32,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 public class MainActivity extends TitleBarActivity {
 
@@ -65,10 +70,10 @@ public class MainActivity extends TitleBarActivity {
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, "正常使用必需的权限", 24);
 
-        mTitles[0]="首页";
-        mTitles[1]="抢单";
-        mTitles[2]="订单";
-        mTitles[3]="我的";
+        mTitles[0] = "首页";
+        mTitles[1] = "抢单";
+        mTitles[2] = "订单";
+        mTitles[3] = "我的";
         mFragments.add(new HomeFragment());
         mFragments.add(new GraboneFragment());
         mFragments.add(new OrderFormFragment());
@@ -76,7 +81,7 @@ public class MainActivity extends TitleBarActivity {
         userFragment.setShareClickListener(new UserFragment.ShareClickListener() {
             @Override
             public void onClick() {
-              final ShareBottomDialog shareBottomDialog =new ShareBottomDialog(MainActivity.this,MainActivity.this);
+                final ShareBottomDialog shareBottomDialog = new ShareBottomDialog(MainActivity.this, MainActivity.this);
                 shareBottomDialog.show();
             }
         });
@@ -88,30 +93,32 @@ public class MainActivity extends TitleBarActivity {
         bottom_common_layout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                if (position==3) {
-                    if (StatusBarUtils.isMeizuFlyme()){
-                        StatusBarUtils.StatusBarDarkMode(MainActivity.this,2);
-                    }else{
+                if (position == 3) {
+                    if (StatusBarUtils.isMeizuFlyme()) {
+                        StatusBarUtils.StatusBarDarkMode(MainActivity.this, 2);
+                    } else {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             StatusBarUtils.transparencyBar(MainActivity.this);
                         }
                     }
-                    StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.colorAccent);
-                }else{
-                    if (StatusBarUtils.isMeizuFlyme()){
-                        StatusBarUtils.StatusBarLightMode(MainActivity.this,2);
-                    }else{
+                    StatusBarUtils.setStatusBarColor(MainActivity.this, R.color.colorAccent);
+                } else {
+                    if (StatusBarUtils.isMeizuFlyme()) {
+                        StatusBarUtils.StatusBarLightMode(MainActivity.this, 2);
+                    } else {
                         StatusBarUtils.StatusBarLightMode(MainActivity.this);
                     }
-                    StatusBarUtils.setStatusBarColor(MainActivity.this,R.color.white);
+                    StatusBarUtils.setStatusBarColor(MainActivity.this, R.color.white);
                 }
             }
+
             @Override
             public void onTabReselect(int position) {
 
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

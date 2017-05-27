@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" filepath="$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/KingdeePavilion.iml" filepath="$PROJECT_DIR$/KingdeePavilion.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/umeng_sdk/umeng_sdk.iml" filepath="$PROJECT_DIR$/umeng_sdk/umeng_sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/xldUtils/xldUtils.iml" filepath="$PROJECT_DIR$/xldUtils/xldUtils.iml" />
     </modules>

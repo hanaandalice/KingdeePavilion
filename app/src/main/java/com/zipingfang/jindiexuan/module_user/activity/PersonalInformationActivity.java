@@ -12,9 +12,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xilada.xldutils.activitys.SelectPhotoDialog;
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
+import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.api.Api;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
 import com.zipingfang.jindiexuan.module_login.activity.SelectDriverActivity;
 import com.zipingfang.jindiexuan.module_login.activity.SelectSexActivity;
 import com.zipingfang.jindiexuan.module_login.activity.SelectedDeliveryActivity;
@@ -28,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -70,6 +75,7 @@ public class PersonalInformationActivity extends TitleBarActivity {
     private static final int SEX_DELIVERY =19;
     private String imgPath;
     private String sex;
+    private String area_id;
 
     private static final String TAG = "PersonalInformationActi";
 
@@ -80,6 +86,22 @@ public class PersonalInformationActivity extends TitleBarActivity {
     @Override
     protected void initView() throws JSONException, IllegalAccessException {
         setTitle("个人信息");
+        setRightButton("提交", null, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (TextUtils.isEmpty(area_id)) {
+                    Toast.create(PersonalInformationActivity.this).show("请选择区域");
+                    return;
+                }
+                if (TextUtils.equals("男",tv_sex.getText().toString())){
+                    sex ="1";
+                }else{
+                    sex ="2";
+                }
+                sava();
+            }
+        });
         showTitleBarLine(true);
         unbinder = ButterKnife.bind(this);
         if (TextUtils.equals("1", SharedPreferencesUtils.getString(Const.User.USER_DRIVER))) {
@@ -112,8 +134,36 @@ public class PersonalInformationActivity extends TitleBarActivity {
         }
         tv_phone.setText(SharedPreferencesUtils.getString(Const.User.USER_PHONE));
         tv_area.setText(SharedPreferencesUtils.getString(Const.User.USER_AREA_ID));
-
+        area_id =SharedPreferencesUtils.getString(Const.User.USER_AREA_ID);
     }
+
+    private void sava() {
+        showDialog();
+        RequestManager.updateUser(SharedPreferencesUtils.getString(Const.User.TOKEN)
+                , SharedPreferencesUtils.getString(Const.User.USER_PHONE)
+                , tv_nickname.getText().toString()
+                , sex
+                , area_id
+                , new HttpUtils.ResultCallback<ResultData>() {
+                    @Override
+                    public void onResponse(ResultData response) {
+                        Log.d(TAG, "onResponse: ------>"+response.toString());
+
+                    }
+                    @Override
+                    public void onError(Call call, String e) {
+                        super.onError(call, e);
+                        Toast.create(PersonalInformationActivity.this).show(""+e);
+                    }
+
+                    @Override
+                    public void onResult() {
+                        super.onResult();
+                        dismissDialog();
+                    }
+                });
+    }
+
     @OnClick({R.id.layout_part_time_driver
             ,R.id.layout_selected_head_img
             ,R.id.layout_select_nickname
@@ -187,8 +237,10 @@ public class PersonalInformationActivity extends TitleBarActivity {
                     break;
                 case SEX_DELIVERY:
                     String delivery =data.getStringExtra(SelectedDeliveryActivity.DATA);
+                    String delivery_id =data.getStringExtra(SelectedDeliveryActivity.DATA_ID);
                     if (!TextUtils.isEmpty(delivery)) {
                         tv_area.setText("深圳-"+delivery);
+                        area_id =delivery_id;
                     }
                     break;
             }

@@ -25,12 +25,12 @@
             />
             <TextView
                style="@style/hint_text_samll"
-                android:text="运费 "
+                android:text="运费"
                 />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¥ "
+            android:text=" ¥ "
             android:textSize="12sp"
             android:textColor="@color/textAccent"
             />
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         >
         <TextView
             android:layout_width="0dp"
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="@color/hintColor_66"
-        android:text="总计：3个商品  ¥500.00"
+        android:text="总计：3个商品    ¥ 500.00"
         android:gravity="right"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
         android:gravity="center_horizontal"
@@ -131,12 +131,13 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="@color/text_color"
-                android:lineSpacingMultiplier="1.2"
+                android:lineSpacingMultiplier="1.3"
                 android:text="取货地址：深圳市宝安区北环大道琼宇路蛋糕加工坊"
                 />
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,6 +146,7 @@
                     android:layout_marginTop="8dp"
                     android:textSize="14sp"
                     android:textColor="@color/text_color"
+                    android:layout_marginRight="28dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -156,7 +158,7 @@
                     android:layout_alignParentRight="true"
                     />
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -165,7 +167,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="16dp"
         android:paddingTop="8dp"
         android:paddingBottom="16dp"
         android:gravity="top"
@@ -190,9 +192,10 @@
                 android:textColor="@color/text_color"
                 android:text="送货地址：深圳市宝安区北环大道琼宇路蛋糕加工坊"
                 />
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -200,6 +203,7 @@
                     android:text="联系人：赵四"
                     android:layout_marginTop="8dp"
                     android:textSize="14sp"
+                    android:layout_marginRight="28dp"
                     android:textColor="@color/text_color"
                     />
                 <TextView
@@ -212,7 +216,7 @@
                     android:layout_alignParentRight="true"
                     />
 
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <View

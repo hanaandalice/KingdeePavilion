@@ -68,6 +68,7 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
 
 
     private int titleHeight;
+    private UserModel userModel;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -153,13 +154,14 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                     public void onResponse(ResultData response) {
                         Log.d(TAG, "onResponse: ----------->"+response.toString());
                         JSONObject object =response.getJsonObject();
-                        UserModel userModel =new UserModel();
+                        userModel =new UserModel();
                         userModel.setHead_pic(object.optString("head_pic"));
                         userModel.setUsername(object.optString("username"));
                         userModel.setDriver(object.optString("driver"));
                         userModel.setDriver_type(object.optString("driver_type"));
                         userModel.setDriver_status(object.optString("driver_status"));
                         userModel.setNoti_num(object.optString("noti_num"));
+                        userModel.setPhone(object.optString("phone"));
                         refreshData(userModel);
                     }
                     @Override
@@ -278,9 +280,7 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                             @Override
                             public void onBtnClick() {
                                 dialog2.dismiss();
-                                CacheActivity.finishActivity();
-                                SharedPreferencesUtils.clear();
-                                goActivity(LoginActivity.class);
+                                outLogin();
                             }
                         });
                 break;
@@ -289,6 +289,30 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                 break;
         }
     }
+    private void outLogin() {
+        showDialog("退出登录中...");
+        RequestManager.loginOut(SharedPreferencesUtils.getString(Const.User.TOKEN), new HttpUtils.ResultCallback<ResultData>() {
+            @Override
+            public void onResponse(ResultData response) {
+                outLogin();
+                CacheActivity.finishActivity();
+                SharedPreferencesUtils.clear();
+                SharedPreferencesUtils.save(Const.User.USER_PHONE,userModel.getPhone());
+                goActivity(LoginActivity.class);
+            }
+            @Override
+            public void onResult() {
+                super.onResult();
+                dismissDialog();
+            }
+            @Override
+            public void onError(Call call, String e) {
+                super.onError(call, e);
+//                Toast.create(getActivity()).show(""+e);
+            }
+        });
+    }
+
     public interface ShareClickListener{
         void onClick();
     }

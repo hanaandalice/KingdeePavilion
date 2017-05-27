@@ -844,7 +844,58 @@ public class RequestManager {
         map.put("addr",addr);
         map.put("lng",lng);
         map.put("lat",lat);
-        secretRequest("/User/daka",token,map, callback);
+        secretRequest("/User/daka",token,map,callback);
     }
 
+    /**
+     获取区域
+     *  @param callback 回调
+     */
+    public static void getArea(String token,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/Index/getArea",token,map, callback);
+    }
+
+    /**
+     退出登录
+     *  @param callback 回调
+     */
+    public static void loginOut(String token,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        secretRequest("/User/loginOut",token,map, callback);
+    }
+
+    /**
+     * phone:string
+     手机号
+     name:	string
+     昵称
+     sex:	string
+     性别 1：男，2：女
+     area_id:	int
+     区域
+     *
+     更新个人信息
+     *  @param callback 回调
+     */
+    public static void updateUser(String token,String phone,String name,String sex,String area_id,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("phone",phone);
+        map.put("name",name);
+        map.put("sex",sex);
+        map.put("area_id",area_id);
+        secretRequest("/Index/updateUser",token,map, callback);
+    }
 }

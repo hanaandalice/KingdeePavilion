@@ -21,6 +21,7 @@ public class UserModel {
     private String driver_type;
     private String driver_status;
     private String noti_num;
+    private String phone;
 
     public String getHead_pic() {
         return head_pic;
@@ -68,5 +69,13 @@ public class UserModel {
 
     public void setNoti_num(String noti_num) {
         this.noti_num = noti_num;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -67,6 +67,7 @@ public class LoginActivity extends TitleBarActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, "正常使用必需的权限", 24);
+        et_phone.setText(SharedPreferencesUtils.getString(Const.User.USER_PHONE));
     }
     @OnClick({R.id.tv_forget_password
             ,R.id.tv_login
