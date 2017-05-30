@@ -23,6 +23,7 @@ import com.zipingfang.jindiexuan.module_grabone.GraboneFragment;
 import com.zipingfang.jindiexuan.module_home.HomeFragment;
 import com.zipingfang.jindiexuan.module_orderform.OrderFormFragment;
 import com.zipingfang.jindiexuan.module_user.UserFragment;
+import com.zipingfang.jindiexuan.tool.Rom;
 import com.zipingfang.jindiexuan.umeng.ShareBottomDialog;
 
 import org.json.JSONException;
@@ -96,7 +97,9 @@ public class MainActivity extends TitleBarActivity {
                 if (position == 3) {
                     if (StatusBarUtils.isMeizuFlyme()) {
                         StatusBarUtils.StatusBarDarkMode(MainActivity.this, 2);
-                    } else {
+                    } else if (Rom.isMiui()){
+                        StatusBarUtils.StatusBarDarkMode(MainActivity.this, 1);
+                    }else{
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             StatusBarUtils.transparencyBar(MainActivity.this);
                         }
@@ -105,18 +108,20 @@ public class MainActivity extends TitleBarActivity {
                 } else {
                     if (StatusBarUtils.isMeizuFlyme()) {
                         StatusBarUtils.StatusBarLightMode(MainActivity.this, 2);
-                    } else {
+                    } else if (Rom.isMiui()){
+                        StatusBarUtils.StatusBarLightMode(MainActivity.this, 1);
+                    }else{
                         StatusBarUtils.StatusBarLightMode(MainActivity.this);
                     }
                     StatusBarUtils.setStatusBarColor(MainActivity.this, R.color.white);
                 }
             }
-
             @Override
             public void onTabReselect(int position) {
 
             }
         });
+        Log.d(TAG, "initView: ------->"+ Rom.isEmui());
     }
 
 
