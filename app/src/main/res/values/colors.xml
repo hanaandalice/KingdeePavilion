@@ -14,7 +14,9 @@
     <color name="hintColor_e0">#E0E0E0</color>
     <color name="greenColor_4c">#004c4c</color>
     <color name="greenColor_50">#50B250</color>
+    <color name="greenColor_68">#006800</color>
     <color name="greenColor_4e">#004E4D</color>
+
     <color name="button_click">#338A0000</color>
     <color name="red_ff">#FF3A31</color>
     <color name="red_7e">#7E3900</color>

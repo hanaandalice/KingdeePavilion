@@ -3,15 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <android.support.v4.view.ViewPager
         android:id="@+id/mImageViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-    >
+        >
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -26,16 +28,17 @@
         android:id="@+id/tv_jump_over"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="跳过"
+        android:text="进入APP"
         android:textSize="15sp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:layout_alignParentRight="true"
-        android:background="#33000000"
+        android:background="@drawable/radius_25dp_transparent_bg_line_white_1dp"
         android:layout_margin="10dp"
-    />
+        android:textColor="@color/white"
+        />
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
@@ -43,6 +46,7 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-    />
+        android:layout_marginBottom="66dp"
+        />
 
 </RelativeLayout>

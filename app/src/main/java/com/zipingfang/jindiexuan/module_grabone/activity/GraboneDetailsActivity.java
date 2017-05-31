@@ -68,7 +68,7 @@ public class GraboneDetailsActivity extends TitleBarActivity {
         switch (type) {
             case "0":
                 tv_status.setText("待抢单");
-                tv_status.setTextColor(getResources().getColor(R.color.greenColor_4e));
+                tv_status.setTextColor(getResources().getColor(R.color.greenColor_68));
                 tv_punch.setText("抢单");
                 tv_punch.setTextColor(getResources().getColor(R.color.textAccent));
                 tv_punch.setBackgroundDrawable(getResources().getDrawable(R.drawable.radius_25dp_white_bg_line_accent_7e_1dp));

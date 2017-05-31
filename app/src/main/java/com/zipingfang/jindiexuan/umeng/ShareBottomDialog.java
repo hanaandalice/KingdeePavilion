@@ -141,7 +141,7 @@ public class ShareBottomDialog extends BottomBaseDialog<ShareBottomDialog> {
 
     }
     private void share(final SHARE_MEDIA i) {
-        Glide.with(context).load(R.mipmap.ic_launcher).asBitmap().override(200,200).into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).load(R.mipmap.icon_share_logo).asBitmap().override(200,200).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 UMWeb web = new UMWeb(url);

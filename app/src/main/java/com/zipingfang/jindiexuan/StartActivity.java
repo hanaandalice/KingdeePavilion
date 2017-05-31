@@ -24,7 +24,7 @@ import java.util.List;
 public class StartActivity extends BaseActivity implements View.OnClickListener{
 //    R.mipmap.iv_start_bg_one, R.mipmap.iv_start_bg_two, R.mipmap.iv_start_bg_three
 //    R.mipmap.bg_welcome,
-    private int[] imageInteger = {R.mipmap.bg_start_one, R.mipmap.bg_start_two,R.mipmap.bg_start_two};
+    private int[] imageInteger = {R.mipmap.bg_start_one, R.mipmap.bg_start_two};
     private List<ImageView> listImage = new ArrayList<ImageView>();
     private boolean isScrolling;
     private boolean isStart = false;
@@ -114,6 +114,7 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
                 break;
         }
     }
+
     private class StartAdapter extends PagerAdapter {
         @Override
         public int getCount() {
@@ -140,23 +141,24 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
         final float scale =getResources().getDisplayMetrics().density;
         return (int)(dip * scale + 0.5f);
     }
+
     private void createIndicatorLayout(){
         addIndicator();
     }
+
     //    添加圆点
     private void addIndicator(){
         if (startAdapter!=null){
             int count = startAdapter.getCount();
-//            System.err.println("---->"+count);
             indicatorViews = new ImageView[count];
             for (int i = 0;i<count;i++){
                 ImageView view = new ImageView(this);
                 indicatorViews[i] = view;
-                LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(dip2px(18),dip2px(3));
+                LinearLayout.LayoutParams params =new LinearLayout.LayoutParams(dip2px(5),dip2px(5));
                 params.rightMargin = dip2px(5);
                 view.setLayoutParams(params);
                 view.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                view.setBackgroundResource(com.xilada.xldutils.R.drawable.page_indication_rect);
+                view.setBackgroundResource(com.xilada.xldutils.R.drawable.page_indicator);
                 if (i == 0){
                     view.setSelected(true);
                 }

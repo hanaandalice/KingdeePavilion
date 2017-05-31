@@ -4,6 +4,8 @@ import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -24,6 +26,7 @@ import com.xilada.xldutils.utils.Toast;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.api.RequestManager;
 import com.zipingfang.jindiexuan.api.ResultData;
+import com.zipingfang.jindiexuan.module_home.HomeFragment;
 import com.zipingfang.jindiexuan.module_home.adapter.HomeCommodityAdapter;
 import com.zipingfang.jindiexuan.module_home.model.CateGoodsModel;
 import com.zipingfang.jindiexuan.module_home.model.HomeCommodityModel;
@@ -36,18 +39,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017/5/18.
  */
 
-public class CommodityFragment extends BaseLazyFragment{
+public class CommodityFragment extends BaseLazyFragment implements AppBarLayout.OnOffsetChangedListener{
 
     private static final String TAG = "CommodityFragment";
     private HomeCommodityAdapter homeCommodityAdapter;
     private RecyclerView recyclerView;
     private SuperSwipeRefreshLayout swipe_refresh;
+    @BindView(R.id.mAppBar)
+    AppBarLayout mAppBar;
     private String cate_id;
     private int page =1;
 
@@ -69,6 +75,7 @@ public class CommodityFragment extends BaseLazyFragment{
     protected void onFirstVisibleToUser() {
         recyclerView =findViewById(R.id.recyclerView);
         swipe_refresh =findViewById(R.id.swipe_refresh);
+        addListener();
         Bundle bundle =getArguments();
         cate_id = bundle.getString("cate_id");
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
@@ -204,12 +211,12 @@ public class CommodityFragment extends BaseLazyFragment{
     }
     @Override
     protected void onVisibleToUser() {
-
+        addListener();
     }
 
     @Override
     protected void onInvisibleToUser() {
-
+        removeListener();
     }
     private View createFooterView() {
         View footerView = LayoutInflater.from(swipe_refresh.getContext())
@@ -238,5 +245,30 @@ public class CommodityFragment extends BaseLazyFragment{
         progressBar.setVisibility(View.GONE);
         return headerView;
     }
+    public void addListener(AppBarLayout.OnOffsetChangedListener listener) {
+        if (mAppBar!=null)
+            mAppBar.addOnOffsetChangedListener(listener);
+    }
 
+    public void removeListener(AppBarLayout.OnOffsetChangedListener listener) {
+        if (mAppBar!=null)
+            mAppBar.removeOnOffsetChangedListener(listener);
+    }
+    private void addListener() {
+        Fragment fragment = getParentFragment();
+        if (fragment != null && !fragment.isDetached() && fragment instanceof HomeFragment) {
+            ((HomeFragment) fragment).addListener(this);
+        }
+    }
+    private void removeListener() {
+        Fragment fragment = getParentFragment();
+        if (fragment != null && !fragment.isDetached() && fragment instanceof HomeFragment) {
+            ((HomeFragment) fragment).removeListener(this);
+        }
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        swipe_refresh.setEnabled(verticalOffset == 0);
+    }
 }

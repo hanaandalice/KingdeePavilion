@@ -20,7 +20,6 @@ import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.network.HttpUtils;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.zipingfang.jindiexuan.R;
-import com.zipingfang.jindiexuan.api.Api;
 import com.zipingfang.jindiexuan.api.RequestManager;
 import com.zipingfang.jindiexuan.api.ResultData;
 import com.zipingfang.jindiexuan.utils.Const;
@@ -48,11 +47,11 @@ public class RecommendActivity extends TitleBarActivity {
     @BindView(R.id.tv_qzone)
     TextView tv_qzone;
 
-
     private Unbinder unbinder;
     private String title,
             content,
             url;
+
     @Override
     protected int setContentLayout() {
         return R.layout.activity_recommend;
@@ -105,7 +104,7 @@ public class RecommendActivity extends TitleBarActivity {
 
     private void share(final SHARE_MEDIA i) {
         if (TextUtils.isEmpty(content)&&TextUtils.isEmpty(title)&&TextUtils.isEmpty(url))return;
-        Glide.with(this).load(R.mipmap.ic_launcher).asBitmap().override(200,200).into(new SimpleTarget<Bitmap>() {
+        Glide.with(this).load(R.mipmap.icon_share_logo).asBitmap().override(200,200).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 UMWeb web = new UMWeb(url);

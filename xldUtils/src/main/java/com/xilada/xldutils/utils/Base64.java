@@ -16,8 +16,12 @@
 
 package com.xilada.xldutils.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Base64OutputStream;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 
 /***
@@ -463,6 +467,33 @@ public class Base64 {
         }
     }
 
+    //  --------------------------------------------------------
+    //  encoding
+    //  --------------------------------------------------------
+
+    /***
+     * Base64-encode the given data and return a newly allocated
+     * String with the result.
+     *
+     * @param input  the data to encode
+     * @param flags  controls certain features of the encoded output.
+     *               Passing {@code DEFAULT} results in output that
+     *               adheres to RFC 2045.
+     */
+    public static String encodeToString(File file, int flags) {
+        try {
+            return new String(encode(Bitmap2Bytes(file), flags), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // US-ASCII is guaranteed to be available.
+            throw new AssertionError(e);
+        }
+    }
+    private static byte[] Bitmap2Bytes(File file) {
+        Bitmap bmp = BitmapFactory.decodeFile(String.valueOf(file.getAbsoluteFile()));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
     /***
      * Base64-encode the given data and return a newly allocated
      * String with the result.

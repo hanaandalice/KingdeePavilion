@@ -751,8 +751,6 @@ public class RequestManager {
         map.put("driver_pic2", imgs[3]);
         secretRequest("/User/beDriver",token,map, callback);
     }
-
-
     private static byte[] Bitmap2Bytes(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -897,5 +895,25 @@ public class RequestManager {
         map.put("sex",sex);
         map.put("area_id",area_id);
         secretRequest("/Index/updateUser",token,map, callback);
+    }
+
+    /**
+     phone:string
+     说明文字
+     img:string
+     头像 base_64
+     *
+     修改个人头像
+     *  @param callback 回调
+     */
+    public static void sendAvatar(String token,String phone,String img,final HttpUtils.ResultCallback<ResultData> callback) {
+        /*final String request = ParamsBuilder.create()
+                .append("action", action)
+                .append("targetId", targetId)
+                .build();*/
+        Map<String,Object> map=new HashMap<>();
+        map.put("phone",phone);
+        map.put("img",img);
+        secretRequest("/Index/sendAvatar",token,map, callback);
     }
 }

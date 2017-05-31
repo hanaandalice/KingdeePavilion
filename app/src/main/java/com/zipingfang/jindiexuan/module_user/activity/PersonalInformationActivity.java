@@ -89,7 +89,6 @@ public class PersonalInformationActivity extends TitleBarActivity {
         setRightButton("提交", null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (TextUtils.isEmpty(area_id)) {
                     Toast.create(PersonalInformationActivity.this).show("请选择区域");
                     return;
@@ -184,8 +183,7 @@ public class PersonalInformationActivity extends TitleBarActivity {
                 goActivityForResult(SelectNickNameActivity.class,SELECT_NICKNAME);
                 break;
             case R.id.layout_select_sex:
-//                goActivityForResult(SelectSexActivity.class,SELECT_SEX);
-                goActivity(FullTimeDriverAuthenticateActivity.class);
+                goActivityForResult(SelectSexActivity.class,SELECT_SEX);
                 break;
             case R.id.layout_select_phone:
                 goActivityForResult(ModifyPhoneActivity.class,SELECT_PHONE);

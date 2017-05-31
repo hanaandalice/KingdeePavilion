@@ -1,5 +1,6 @@
 package com.zipingfang.jindiexuan.module_login.activity;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
@@ -135,7 +136,9 @@ public class RegisterActivity extends TitleBarActivity {
             public void onResponse(ResultData response) {
                 Log.d(TAG, "onResponse: ------>"+response.toString());
 //                Toast.create(RegisterActivity.this).show(""+response.toString());
-                goActivity(RegisterPersonalInformationActivity.class);
+                Bundle bundle =new Bundle();
+                bundle.putString("phone",et_phone.getText().toString());
+                goActivity(RegisterPersonalInformationActivity.class,bundle);
                 finish();
             }
 

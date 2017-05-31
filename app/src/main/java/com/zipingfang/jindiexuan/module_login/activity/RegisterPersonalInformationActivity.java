@@ -11,9 +11,15 @@ import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
 import com.xilada.xldutils.activitys.SelectPhotoDialog;
 import com.xilada.xldutils.activitys.TitleBarActivity;
+import com.xilada.xldutils.network.HttpUtils;
+import com.xilada.xldutils.utils.Base64;
+import com.xilada.xldutils.utils.BitmapUtils;
 import com.xilada.xldutils.utils.Toast;
+import com.xilada.xldutils.utils.luban.LubanGetFileProgressListener;
 import com.xilada.xldutils.view.RoundAngleImageView;
 import com.zipingfang.jindiexuan.R;
+import com.zipingfang.jindiexuan.api.RequestManager;
+import com.zipingfang.jindiexuan.api.ResultData;
 
 import org.json.JSONException;
 
@@ -56,6 +62,7 @@ public class RegisterPersonalInformationActivity extends TitleBarActivity {
     private String sex="";
     private String delivery;
 
+    private String phone;
     @Override
     protected int setContentLayout() {
         return R.layout.activity_register_personal_information;
@@ -66,6 +73,7 @@ public class RegisterPersonalInformationActivity extends TitleBarActivity {
         setTitle("填写个人信息");
         showTitleBarLine(true);
         unbinder = ButterKnife.bind(this);
+        phone =getIntent().getStringExtra("phone");
         RxView.clicks(tv_next)
                 .throttleFirst(2, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {
@@ -83,10 +91,37 @@ public class RegisterPersonalInformationActivity extends TitleBarActivity {
                             Toast.create(RegisterPersonalInformationActivity.this).show("请选择配送区域");
                             return;
                         }
-                        goActivity(AuthenticateActivity.class);
+                        registerInformation();
                     }
                 });
     }
+
+    private void registerInformation() {
+        BitmapUtils.compressWithRx(this, new File(imagePath), new LubanGetFileProgressListener() {
+            @Override
+            public void onStart() {
+
+            }
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+            @Override
+            public void onSuccess(File file) {
+                String baseImage = Base64.encodeToString(file,Base64.DEFAULT);
+                showDialog();
+                RequestManager.sendAvatar("", phone, baseImage, new HttpUtils.ResultCallback<ResultData>() {
+                    @Override
+                    public void onResponse(ResultData response) {
+                        goActivity(AuthenticateActivity.class);
+                    }
+                });
+
+            }
+        });
+
+    }
+
     @OnClick({R.id.layout_selected_head_img
             ,R.id.layout_selected_sex
             ,R.id.layout_selected_delivery_area

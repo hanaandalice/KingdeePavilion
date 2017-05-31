@@ -1,8 +1,6 @@
 package com.zipingfang.jindiexuan.module_user.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,18 +15,14 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.xilada.xldutils.activitys.SelectPhotoDialog;
 import com.xilada.xldutils.activitys.TitleBarActivity;
 import com.xilada.xldutils.network.HttpUtils;
-import com.xilada.xldutils.tool.CacheActivity;
 import com.xilada.xldutils.utils.Base64;
 import com.xilada.xldutils.utils.BitmapUtils;
 import com.xilada.xldutils.utils.SharedPreferencesUtils;
 import com.xilada.xldutils.utils.Toast;
 import com.xilada.xldutils.utils.luban.LubanGetFileProgressListener;
-import com.zipingfang.jindiexuan.MainActivity;
 import com.zipingfang.jindiexuan.R;
 import com.zipingfang.jindiexuan.api.RequestManager;
 import com.zipingfang.jindiexuan.api.ResultData;
-import com.zipingfang.jindiexuan.module_login.activity.AuthenticateActivity;
-import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
 import com.zipingfang.jindiexuan.module_login.activity.SelectDriverActivity;
 import com.zipingfang.jindiexuan.utils.ClassifyManager;
 import com.zipingfang.jindiexuan.utils.Const;
@@ -36,11 +30,7 @@ import com.zipingfang.jindiexuan.view.XEditText;
 
 import org.json.JSONException;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -288,16 +278,10 @@ public class FullTimeDriverAuthenticateActivity extends TitleBarActivity {
             }
             @Override
             public void onSuccess(File file) {
-                File compressfile =file;
-                Bitmap bmp = BitmapFactory.decodeFile(String.valueOf(compressfile.getAbsoluteFile()));
-                imgs[i] = Base64.encodeToString(Bitmap2Bytes(bmp), Base64.DEFAULT);
+                imgs[i] = Base64.encodeToString(file, Base64.DEFAULT);
+                Log.d(TAG, "onSuccess: --------->"+ imgs[i] );
             }
         });
-    }
-    private static byte[] Bitmap2Bytes(Bitmap bm) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        return baos.toByteArray();
     }
     @Override
     protected void onDestroy() {

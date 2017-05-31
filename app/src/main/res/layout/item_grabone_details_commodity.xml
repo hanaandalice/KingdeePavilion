@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/text_color"
-            android:text="Classical Natural Cream"
+            android:text="Classical Natural Cream(200磅)"
             android:layout_marginBottom="8dp"
             />
         <TextView
