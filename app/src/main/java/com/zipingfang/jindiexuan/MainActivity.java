@@ -60,6 +60,7 @@ public class MainActivity extends TitleBarActivity {
     @Override
     protected void initView() throws JSONException, IllegalAccessException {
 //        setTitle("首页");
+        StatusBarUtils.setStatusBarColor(MainActivity.this, R.color.white);
         hideTitle(true);
         hideLeftButton();
         unbinder = ButterKnife.bind(this);

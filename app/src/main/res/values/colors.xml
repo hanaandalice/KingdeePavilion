@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorPrimary">#8A0000</color>
+    <color name="colorPrimaryDark">#8A0000</color>
     <color name="colorAccent">#8A0000</color>
 
     <color name="bg_Color">#F0F0F0</color>
@@ -11,6 +11,7 @@
     <color name="hintColor_66">#666666</color>
     <color name="hintColor_99">#999999</color>
     <color name="hintColor_a5">#a58e88</color>
+    <color name="hintColor_e0">#E0E0E0</color>
     <color name="greenColor_4c">#004c4c</color>
     <color name="greenColor_50">#50B250</color>
     <color name="greenColor_65">#006500</color>

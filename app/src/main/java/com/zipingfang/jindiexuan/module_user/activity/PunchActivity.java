@@ -236,7 +236,6 @@ public class PunchActivity extends TitleBarActivity implements BaiduMap.OnMapLoa
             mapView =null;
         }
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ------->"+(helper==null));
         if (null != unbinder) {
             unbinder.unbind();
         }

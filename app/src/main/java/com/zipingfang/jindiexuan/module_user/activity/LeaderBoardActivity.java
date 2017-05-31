@@ -44,9 +44,9 @@ public class LeaderBoardActivity extends TitleBarActivity {
         unbinder = ButterKnife.bind(this);
 
         List<String> stringList =new ArrayList<>();
-        stringList.add("接单排行");
-        stringList.add("收益排行");
-        stringList.add("服务星级排行");
+        stringList.add("接单排名");
+        stringList.add("收益排名");
+        stringList.add("服务星级排名");
         List<Fragment> fragmentList =new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {

@@ -70,11 +70,11 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="r1FR1Y0tWUP2OOPKhgLpw1XF7skCGAy9" />
-        <!--<service-->
-            <!--android:name="com.baidu.location.f"-->
-            <!--android:enabled="true"-->
-            <!--android:process=":remote" >-->
-        <!--</service>-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
 
         <!--7.0拍照-->
         <provider
@@ -121,6 +121,8 @@
         <activity android:name=".module_user.activity.PunchSuccessActivity"/>
         <activity android:name=".module_user.activity.PunchErrorActivity"/>
         <activity android:name=".module_grabone.activity.GraboneDetailsActivity"/>
+        <activity android:name=".module_grabone.activity.NavigationActivity"/>
+        <activity android:name=".module_grabone.activity.StartNavigationActivity"/>
         <!--xldUtils-->
         <activity android:name="com.xilada.xldutils.activitys.SelectPhotoDialog"
             android:theme="@style/Dialog"

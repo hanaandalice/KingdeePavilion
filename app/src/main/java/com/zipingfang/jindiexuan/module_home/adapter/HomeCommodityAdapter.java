@@ -20,7 +20,8 @@ import java.util.List;
  * Created by Administrator on 2017/5/18.
  */
 
-public class HomeCommodityAdapter extends HeaderAndFooterRecyclerAdapter<CateGoodsModel> {
+public class HomeCommodityAdapter extends BaseRecyclerAdapter<CateGoodsModel> {
+
 
     private int height;
     private Context context;

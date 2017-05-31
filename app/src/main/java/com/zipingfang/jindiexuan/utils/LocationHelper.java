@@ -29,6 +29,7 @@ public class LocationHelper {
 
     public static LocationHelper getInstance() {
         if (helper == null) {
+            Log.d(TAG, "getInstance: --------->");
             helper = new LocationHelper();
         }
         return helper;

@@ -44,6 +44,7 @@ public abstract class TitleBarActivity extends BaseActivity {
         initStatus();
         //修改状态栏文字颜色
         StatusBarUtils.StatusBarLightMode(this);
+        StatusBarUtils.setStatusBarColor(this, R.color.white);
         CacheActivity.addActivity(this);
         try {
             init();

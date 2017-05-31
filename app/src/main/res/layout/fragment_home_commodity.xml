@@ -6,9 +6,15 @@
     android:background="@color/white"
     android:padding="10dp"
     >
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.zipingfang.jindiexuan.view.superRefreshView.SuperSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.zipingfang.jindiexuan.view.superRefreshView.SuperSwipeRefreshLayout>
+
 </LinearLayout>

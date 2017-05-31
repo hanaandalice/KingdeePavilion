@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xilada.xldutils.activitys.BaseActivity;
+import com.xilada.xldutils.tool.StatusBarUtils;
 import com.zipingfang.jindiexuan.module_login.activity.LoginActivity;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class StartActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
+        StatusBarUtils.setStatusBarColor(this,R.color.white);
         ViewPager viewPager = bind(R.id.mImageViewPager);
         view_start = bind(R.id.view_start);
         view_start.setVisibility(View.GONE);
