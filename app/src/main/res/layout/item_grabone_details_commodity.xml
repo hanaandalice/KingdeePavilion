@@ -8,15 +8,6 @@
     android:paddingRight="10dp"
     android:layout_marginTop="12dp"
     >
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        android:layout_marginRight="8dp"
-        android:src="@mipmap/test_commodity_01" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,25 +20,50 @@
             android:textColor="@color/text_color"
             android:text="Classical Natural Cream"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="2dp"
             />
         <TextView
-            style="@style/hint_text"
-            android:text="重量200磅    直径8cm"
+            style="@style/hint_text_samll"
+            android:text="数量：1个    价格：¥100"
             />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp">
-            <TextView
-                style="@style/hint_text_samll"
-                android:text="¥ 100"
-                />
-            <TextView
-                style="@style/hint_text_samll"
-                android:text="1个"
-                android:layout_alignParentRight="true"
-                />
-        </RelativeLayout>
     </LinearLayout>
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView5"-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="70dp"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:src="@mipmap/test_commodity_01" />-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--&gt;-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="14sp"-->
+    <!--android:textColor="@color/text_color"-->
+    <!--android:text="Classical Natural Cream"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginTop="2dp"-->
+    <!--/>-->
+    <!--<TextView-->
+    <!--style="@style/hint_text"-->
+    <!--android:text="重量200磅    直径8cm"-->
+    <!--/>-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="6dp">-->
+    <!--<TextView-->
+    <!--style="@style/hint_text_samll"-->
+    <!--android:text="¥ 100"-->
+    <!--/>-->
+    <!--<TextView-->
+    <!--style="@style/hint_text_samll"-->
+    <!--android:text="1个"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--/>-->
+    <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
 </LinearLayout>

@@ -1,14 +1,12 @@
 package com.zipingfang.jindiexuan.module_grabone.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -84,7 +82,6 @@ public class NavigationActivity extends BaseActivity implements BaiduMap.OnMapLo
         helper.setCallBack(new LocationHelper.LocationCallBack() {
             @Override
             public void callBack(final BDLocation bdLocation) {
-
                 if (mapView == null)
                     return;
                 // 此处设置开发者获取到的方向信息，顺时针0-360
@@ -95,11 +92,16 @@ public class NavigationActivity extends BaseActivity implements BaiduMap.OnMapLo
                         .longitude(bdLocation.getLongitude()).build();
                 baiduMap.setMyLocationData(locData);
                 animateMap(new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude()), 17f);
-                Log.d(TAG, "callBack: --------->"+BaiduNaviManager.isNaviInited());
-                if (BaiduNaviManager.isNaviInited()) {
-                    showDialog("计算路线中...");
-                    routeplanToNavi(BNRoutePlanNode.CoordinateType.BD09LL,bdLocation.getLongitude(),bdLocation.getLatitude(),bdLocation.getAddrStr());
-                }
+             new Handler().postDelayed(new Runnable() {
+                 @Override
+                 public void run() {
+                     if (BaiduNaviManager.isNaviInited()) {
+                         showDialog("计算路线中...");
+                         routeplanToNavi(BNRoutePlanNode.CoordinateType.BD09LL,bdLocation.getLongitude(),bdLocation.getLatitude(),bdLocation.getAddrStr());
+                     }
+                 }
+             },500);
+
             }
         });
         helper.start();
