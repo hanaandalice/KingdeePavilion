@@ -256,6 +256,7 @@ public class CommodityFragment extends BaseLazyFragment implements AppBarLayout.
     }
     private void addListener() {
         Fragment fragment = getParentFragment();
+        Log.d(TAG, "addListener: "+(fragment != null));
         if (fragment != null && !fragment.isDetached() && fragment instanceof HomeFragment) {
             ((HomeFragment) fragment).addListener(this);
         }
@@ -269,6 +270,8 @@ public class CommodityFragment extends BaseLazyFragment implements AppBarLayout.
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        Log.d(TAG, "onOffsetChanged: ----------->"+verticalOffset);
+        Toast.create(getActivity()).show(""+verticalOffset);
         swipe_refresh.setEnabled(verticalOffset == 0);
     }
 }

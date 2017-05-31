@@ -2,6 +2,7 @@ package com.zipingfang.jindiexuan.module_home;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.zipingfang.jindiexuan.view.view_switcher.UpDownViewSwitcher;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,15 +73,13 @@ public class HomeFragment extends BaseLazyFragment {
             }
             @Override
             public void onPageSelected(int position) {
-            
+
             }
         });
-
         unlimitedPagerAdapter = new RecyclingUnlimitedPagerAdapter<HomeModel.LunboBean>(bannerLayout.getAutoScrollViewPager(),getActivity(), lunboBeanList, R.layout.item_banner_imgae) {
             @Override
             protected void onBind(int position, HomeModel.LunboBean data, ViewHolder holder) {
                 Glide.with(getActivity()).load(Api.IMG_URL+data.getPic()).centerCrop().into(holder.<ImageView>bind(R.id.img));
-                Log.d(TAG, "onBind: -------->"+Api.IMG_URL+data.getPic());
             }
         };
         bannerLayout.setAdapter(unlimitedPagerAdapter);
@@ -102,7 +102,7 @@ public class HomeFragment extends BaseLazyFragment {
         });
         upDownViewSwitcher.setContentLayout(R.layout.home_switch_view);
         viewPager.setOffscreenPageLimit(2);
-        slidingFragmentViewPager = new SlidingFragmentViewPager(getActivity().getSupportFragmentManager(),getActivity(),cateBeanList);
+        slidingFragmentViewPager = new SlidingFragmentViewPager(getChildFragmentManager(),getActivity(),cateBeanList);
         viewPager.setAdapter(slidingFragmentViewPager);
         slding_tab.setViewPager(viewPager);
         retrieveData();
@@ -203,5 +203,18 @@ public class HomeFragment extends BaseLazyFragment {
     public void removeListener(AppBarLayout.OnOffsetChangedListener listener) {
         if (mAppBar!=null)
             mAppBar.removeOnOffsetChangedListener(listener);
+    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
